@@ -46,8 +46,7 @@
 
 <ul>
 	<li>Hamza douaij (@hamzamza)</li>
-	 
-	 <li>Fanan Abdelouahed (@fanan4)</li>
+	<li>Fanan Abdelouahed (@fanan4)</li>
 </ul>
 
 <h2>License</h2>
