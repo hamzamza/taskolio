@@ -45,8 +45,9 @@
 <h2>Contributors</h2>
 
 <ul>
-	<li>John Doe (@johndoe)</li>
-	<li>Jane Smith (@janesmith)</li>
+	<li>Hamza douaij (@hamzamza)</li>
+	 
+	 <li>Fanan Abdelouahed (@fanan4)</li>
 </ul>
 
 <h2>License</h2>
