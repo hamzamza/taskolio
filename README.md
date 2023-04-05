@@ -45,8 +45,9 @@
 <h2>Contributors</h2>
 
 <ul>
-	<li>Hamza douaij (@hamzamza)</li>
+	<li>Hamza Douaij (@hamzamza)</li>
 	<li>Fanan Abdelouahed (@fanan4)</li>
+		<li>Fatima Aourga (@janesmith)</li>
 </ul>
 
 <h2>License</h2>
