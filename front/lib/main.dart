@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:front/screens/todys_screen.dart';
+import 'package:front/controllers/auth_controller.dart';
+import 'package:front/controllers/screens_controller.dart';
+import 'package:front/helpers/colors.dart';
+import 'package:front/screens/main_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 
-void main() {
+import 'screens/welcome_screen.dart';
+
+void main() async {
+  await dotenv.load();
+
   runApp(
-    const GetMaterialApp(
-      home: App(),
+    GetMaterialApp(
+      defaultTransition:
+          Transition.cupertino, // set a default transition for all routes
+      transitionDuration: Duration(milliseconds: 800),
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+          foregroundColor: Colors.black,
+        ),
+      ),
+      home: const App(),
     ),
   );
 }
@@ -16,6 +34,25 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TodysScreen();
+    final ScreenController screenController = Get.put(ScreenController());
+    final AuthController authController = Get.put(AuthController());
+    authController.checkAuth();
+    return Container(child: GetBuilder<AuthController>(builder: (auth) {
+      return auth.IsLoading
+          ? const Scaffold(
+              backgroundColor: LightGrey,
+              body: Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                ),
+              ))
+          : (auth.IsLogedin
+              ? const MainScreen()
+              : const Scaffold(
+                  body: WelcomeScreen(),
+                  backgroundColor: LightGrey,
+                ));
+    }));
   }
 }
+// ipAddress : 192.168.1.105

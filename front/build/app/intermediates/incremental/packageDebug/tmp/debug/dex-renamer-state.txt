@@ -1,4 +1,4 @@
-#Wed Apr 05 23:40:10 WET 2023
+#Sat Apr 08 04:57:00 WET 2023
 base.0=/home/douaij/projects/taskolio/front/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex
