@@ -24,6 +24,7 @@ class ListScreen extends StatelessWidget {
             actions: [
               PopupMenuButton(
                   elevation: 4,
+
                   shadowColor: const Color.fromARGB(87, 0, 0, 0),
                   // add icon, by default "3 dot" icon
                   iconSize: 30,
@@ -38,6 +39,7 @@ class ListScreen extends StatelessWidget {
                   },
                   onSelected: (value) {}),
             ],
+            automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Colors.white,
             title: Row(
@@ -50,7 +52,7 @@ class ListScreen extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: Container(height: 70, child: const Menubottom()),
+          bottomNavigationBar: Container(height: 70, child:   Menubottom()),
         ));
   }
 }

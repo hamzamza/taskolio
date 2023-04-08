@@ -4,15 +4,20 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class AuthController extends GetxController {
   late bool _waiting = false;
-  late String _email;
-  late String _password;
+  late String _email="";
+  late String _password="";
   late bool _logedin = false;
   late bool _loading = true;
-
-  Future<bool> login(String username, String password) async {
+  setPassword(String password){
+    _password=password;
+ }
+  setEmail(String email){
+    _email=email;
+  }
+  Future<bool> login() async {
     _waiting = true;
     update();
-    bool logedin = await Login(username, password);
+    bool logedin = await Login(_email, _password);
     _waiting = false;
     update();
     return logedin;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:front/controllers/screens_controller.dart';
 import 'package:front/helpers/colors.dart';
+import 'package:front/screens/category_screen.dart';
 import 'package:front/screens/list_screen.dart';
 import 'package:get/get.dart';
 
@@ -153,8 +154,7 @@ class MenuFullScreen extends StatelessWidget {
                           "Categories ",
                           4,
                           screen.selectedScreen,
-                          screenConctroller,
-                          context),
+                          screenConctroller, context),
                       ClickedCard(
                           const Icon(
                             Icons.delete_outline,
@@ -207,10 +207,21 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          screenConctroller.SelectScreen(index);
-          Navigator.pop(context);
-          Get.back();
-          Get.to(ListScreen());
+          switch(index){
+            case 4:
+              screenConctroller.SelectScreen(index);
+              Navigator.pop(context);
+              Get.back();
+              Get.to(Category_screen());
+             break;
+            default :
+               screenConctroller.SelectScreen(index);
+               Navigator.pop(context);
+               Get.back();
+               Get.to(ListScreen());
+             break  ;
+
+          }
 
           //TODO: go to page of the given index
         },

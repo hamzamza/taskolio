@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                                   },
                                   child: TextField(
                                     onChanged: (value) {
-                                      username = value;
+                                      auth.setEmail(value);
                                       //TODO: onchange
                                     },
                                     decoration: InputDecoration(
@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                                   },
                                   child: TextField(
                                     onChanged: (value) {
-                                      password = value;
+                                      auth.setPassword(value);
                                       // TODO: onchage
                                     },
                                     obscureText: true,
@@ -138,8 +138,10 @@ class LoginScreen extends StatelessWidget {
                                         horizontal: 60, vertical: 18),
                                     minimumSize: Size.zero),
                                 onPressed: () async {
+                                  print('email: $username');
+                                  print('password : $password');
                                   bool logedin =
-                                      await auth.login(username, password);
+                                      await auth.login();
                                   if (logedin == true) {
                                     Get.to(MainScreen());
                                   }

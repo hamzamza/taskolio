@@ -1,10 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:front/helpers/colors.dart';
 import 'package:front/widgets/menu_fullscreen.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
+import '../controllers/categorie_controller.dart';
 
 class Menubottom extends StatelessWidget {
-  const Menubottom({super.key});
-
+   Menubottom({super.key});
+  categorieController controller=Get.put(categorieController());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,33 +75,47 @@ class Menubottom extends StatelessWidget {
             child: Center(
                 child: Transform.scale(
               scale: 1.2,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(100)),
-                    border: Border.all(color: Colors.red, width: 2)),
-                child: ClickedIcon(const Icon(Icons.add), 10, () {}),
+              child: DragTarget(
+                 builder: (_, __, ___) {
+                   return Obx(() =>
+                       Container(
+
+                       decoration: BoxDecoration(
+
+                       borderRadius: const BorderRadius.all(Radius.circular(100)),
+                       border: Border.all(color: Colors.red, width: 2)),
+                       child:controller.deleting.value ?ClickedIcon( Icon(Icons.delete), 10,(){})  :  ClickedIcon(const Icon(Icons.add), 10, () {
+                       controller.showDialogWithInputs(context);
+                   }),
+                   ),
+                   ) ;
+                   }
               ),
-            )))
+             )
+            )
+        )
       ]),
     );
   }
+   ClickedIcon(Icon icon, double padding, Function whenClickDo) => ElevatedButton(
+     style: ElevatedButton.styleFrom(
+         shape: RoundedRectangleBorder(
+           borderRadius: BorderRadius.circular(30.0),
+         ),
+         foregroundColor: Colors.black87,
+         backgroundColor:controller.deleting.value? Colors.red:Lightwhite ,
+         alignment: Alignment.centerLeft,
+         elevation: 0,
+         padding: EdgeInsets.all(padding),
+         minimumSize: Size.zero),
+     onPressed: () {
+       whenClickDo();
+     },
+     child: Container(
+       child: icon,
+     ),
+   );
+
 }
 
-ClickedIcon(Icon icon, double padding, Function whenClickDo) => ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          foregroundColor: Colors.black87,
-          backgroundColor: Lightwhite,
-          alignment: Alignment.centerLeft,
-          elevation: 0,
-          padding: EdgeInsets.all(padding),
-          minimumSize: Size.zero),
-      onPressed: () {
-        whenClickDo();
-      },
-      child: Container(
-        child: icon,
-      ),
-    );
+

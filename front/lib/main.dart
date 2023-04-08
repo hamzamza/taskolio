@@ -14,6 +14,7 @@ void main() async {
 
   runApp(
     GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       defaultTransition:
           Transition.cupertino, // set a default transition for all routes
       transitionDuration: Duration(milliseconds: 800),
@@ -38,21 +39,17 @@ class App extends StatelessWidget {
     final AuthController authController = Get.put(AuthController());
     authController.checkAuth();
     return Container(child: GetBuilder<AuthController>(builder: (auth) {
-      return auth.IsLoading
-          ? const Scaffold(
-              backgroundColor: LightGrey,
-              body: Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 3,
-                ),
-              ))
-          : (auth.IsLogedin
-              ? const MainScreen()
-              : const Scaffold(
-                  body: WelcomeScreen(),
-                  backgroundColor: LightGrey,
-                ));
-    }));
+      return (auth.IsLogedin
+          ? const MainScreen()
+          : const Scaffold(
+            body: WelcomeScreen(),
+            backgroundColor: LightGrey,
+        )
+      );
+
+      }
+     )
+    );
   }
 }
 // ipAddress : 192.168.1.105
