@@ -39,6 +39,7 @@ class  categorieController extends GetxController {
   var ListCategories=<Category>[].obs;
   var deleting=false.obs;
   var screenState=true.obs;
+  var CatEditController = TextEditingController();
   changeDeleting(bool value){
     deleting.value=value;
   }

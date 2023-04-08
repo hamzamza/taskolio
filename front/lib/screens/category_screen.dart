@@ -113,7 +113,7 @@ class Category_screen extends StatelessWidget {
                      size: 35.0,
                    ),
                    onPressed: (){
-                     Navigator.pop(context);
+                       Navigator.pop(context);
                    },
                  ),
                  const SizedBox(width: 16),
@@ -141,10 +141,7 @@ class Category_screen extends StatelessWidget {
                    borderSide:const BorderSide(color: Colors.grey, width: 5.0),
                    borderRadius: BorderRadius.circular(10.0),
                  ),
-                 focusedBorder: OutlineInputBorder(
-                   borderSide:const BorderSide(color: Colors.black54, width: 2.0),
-                   borderRadius: BorderRadius.circular(10),
-                 ),
+
                  hintStyle:const TextStyle(
                    fontSize: 20.0,
                    fontWeight: FontWeight.w500,
@@ -185,7 +182,6 @@ class Category_screen extends StatelessWidget {
 
    Widget buildOptions() {
      return  Container(
-
        child: Obx(()=>Container(
          margin: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
          child: Wrap(
@@ -377,7 +373,7 @@ class Category_screen extends StatelessWidget {
 
    }
 
-   Widget  buildGridCategorie(BuildContext context) {
+   Widget   buildGridCategorie(BuildContext context) {
 
      return  Container(
        height: MediaQuery.of(context).size.height*0.7, // Set the height as needed
@@ -517,8 +513,7 @@ class Category_screen extends StatelessWidget {
        int? done, String categoryId, BuildContext context) {
      return GestureDetector(
        onTap: () {
-         Navigator.pushNamed(context, '/Categorie',
-             arguments: {'categoryId': categoryId, 'title': title});
+
        },
        child: Container(
          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
