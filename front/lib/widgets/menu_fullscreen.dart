@@ -154,7 +154,8 @@ class MenuFullScreen extends StatelessWidget {
                           "Categories ",
                           4,
                           screen.selectedScreen,
-                          screenConctroller, context),
+                          screenConctroller,
+                          context),
                       ClickedCard(
                           const Icon(
                             Icons.delete_outline,
@@ -207,20 +208,19 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          switch(index){
+          switch (index) {
             case 4:
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.back();
-              Get.to(Category_screen());
-             break;
-            default :
-               screenConctroller.SelectScreen(index);
-               Navigator.pop(context);
-               Get.back();
-               Get.to(ListScreen());
-             break  ;
-
+              Get.to(() => Category_screen());
+              break;
+            default:
+              screenConctroller.SelectScreen(index);
+              Navigator.pop(context);
+              Get.back();
+              Get.to(() => ListScreen());
+              break;
           }
 
           //TODO: go to page of the given index
