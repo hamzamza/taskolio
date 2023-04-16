@@ -10,7 +10,7 @@
 **/.history
 **/.svn/
 **/migrate_working_dir/
-
+toignore
 # IntelliJ related
 **/*.iml
 **/*.ipr
