@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:front/screens/list_screen.dart';
+import 'package:front/test/testController.dart';
 import 'package:front/widgets/menu_fullscreen.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +28,11 @@ class MainScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.96,
             child: Column(
               children: [
+                ElevatedButton(
+                    onPressed: () {
+                      runtest();
+                    },
+                    child: Text("run test")),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Center(

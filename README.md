@@ -47,7 +47,7 @@
 <ul>
 	<li>Hamza Douaij (@hamzamza)</li>
 	<li>Fanan Abdelouahed (@fanan4)</li>
-		<li>Fatima Aourga (@janesmith)</li>
+	<li>Fatima Aourga (@janesmith)</li>
 </ul>
 
 <h2>License</h2>

@@ -1,4 +1,3 @@
-import 'package:front/Models/list.dart';
 import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
 import 'package:front/Models/task.dart';

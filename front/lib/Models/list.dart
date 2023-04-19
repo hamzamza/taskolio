@@ -12,7 +12,7 @@ part 'list.g.dart';
 class TaskList {
   // update in the disk
   Future<void> save() async {
-    final box = getBox();
+    final box = await getBox();
     await box.put(id, this);
   }
 
@@ -220,30 +220,32 @@ class TaskList {
   }
 
   static Future<void> addTaskList(TaskList taskList) async {
-    final box = getBox();
+    final box = await getBox();
     await box.put(taskList.id, taskList);
   }
 
   static Future<void> deleteTaskList(String taskListId) async {
-    final box = getBox();
+    final box = await getBox();
     await box.delete(taskListId);
   }
 
   static Future<TaskList?> getTaskListById(String taskListId) async {
-    final box = getBox();
+    final box = await getBox();
     return box.get(taskListId);
   }
 
   static Future<List<TaskList>> getAllTaskLists() async {
-    final box = getBox();
+    final box = await getBox();
     final taskLists = box.values.toList();
     return taskLists;
   }
 
   static Future<void> addMeny(List<TaskList> newlist) async {
-    final box = getBox();
+    final box = await getBox();
     box.addAll(newlist);
   }
 
-  static Box<TaskList> getBox() => Hive.box<TaskList>('lists');
+  static Future<Box<TaskList>> getBox() async {
+    return Hive.openBox<TaskList>("lists");
+  }
 }
