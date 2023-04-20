@@ -39,7 +39,8 @@ class  categorieController extends GetxController {
   var ListCategories=<Category>[].obs;
   var deleting=false.obs;
   var screenState=true.obs;
-  var CatEditController = TextEditingController();
+
+  //var CatEditController = TextEditingController();
   changeDeleting(bool value){
     deleting.value=value;
   }
@@ -116,7 +117,6 @@ class  categorieController extends GetxController {
                     height: 25,
                     padding:const EdgeInsets.symmetric(horizontal: 10),
                     margin:const EdgeInsets.only(left: 10,top: 5),
-
                     child: const TextField(
                       decoration: InputDecoration(
                           hintText: 'Description',

@@ -218,12 +218,12 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
                screenConctroller.SelectScreen(index);
                Navigator.pop(context);
                Get.back();
-               Get.to(ListScreen());
+               Get.to( ListScreen() ) ;
              break  ;
 
           }
 
-          //TODO: go to page of the given index
+
         },
         style: elevatedbuttonStyle(index == selectedScreen),
         child: Container(
@@ -236,7 +236,7 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               ),
               Text(
                 text,
-                style: TextStyle(color: LightGrey, fontSize: 16),
+                style:const TextStyle(color: LightGrey, fontSize: 16),
               ),
             ],
           ),

@@ -12,42 +12,6 @@ class MainScreen extends StatelessWidget {
   /// then you can switch the sceen you want from the navbar list
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(10.0),
-          ),
-        ),
-        builder: (builder) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.96,
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
-                    ),
-                  ),
-                ),
-                // here you can put the child
-                MenuFullScreen(),
-              ],
-            ),
-          );
-        },
-      );
-    });
-
     return ListScreen();
   }
 }

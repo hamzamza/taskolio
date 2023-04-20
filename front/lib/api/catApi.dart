@@ -8,7 +8,7 @@ Future<List<Category>> FetchCategories() async {
   print('fetch categories');
   String? apiKey = dotenv.env['URL'];
   var url = Uri.parse("$apiKey/category/getCategories");
-  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDBhMzQzNjk2ZTBmNjY0ZDA1ZDM5ZTIiLCJ1c2VybmFtZSI6IjEiLCJpYXQiOjE2Nzg2NDI0NDYsImV4cCI6MTY4MTIzNDQ0Nn0.pbNJDOmBG7YvSsoP7g83kT1wDH1JoMd0LLpV1G19pKQ';
+  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDBhMzQzNjk2ZTBmNjY0ZDA1ZDM5ZTIiLCJ1c2VybmFtZSI6IjEiLCJpYXQiOjE2ODEzOTc5NTQsImV4cCI6MTY4Mzk4OTk1NH0.HxyNiahPQAnSpmtnjyyRlW4vWDf9LphOjVP6mqvVtH0';
   const headers = {'Content-Type': 'application/json','Authorization': token};
   var response = await http.get(url, headers: headers);
   if (response.statusCode == 200) {
