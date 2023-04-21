@@ -19,8 +19,8 @@ class CategoryAdapter extends TypeAdapter<Category> {
     return Category(
       title: fields[1] as String,
       desc: fields[3] as String?,
-      them: fields[4] as int,
-      icon: fields[2] as int?,
+      them: fields[4] as Color,
+      icon: fields[2] as String?,
     )
       ..id = fields[0] as String
       ..tasks = (fields[5] as List).cast<Task>();

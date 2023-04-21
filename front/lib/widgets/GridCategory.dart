@@ -8,9 +8,6 @@ import 'CreateCategory.dart';
 class GridCategory extends StatelessWidget {
    GridCategory(  ) ;
    categorieController controller=Get.put(categorieController());
-   String? title ;
-   Color? color;
-   IconData? icon;
   @override
   Widget build(BuildContext context) {
     return

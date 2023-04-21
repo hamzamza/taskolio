@@ -13,8 +13,6 @@ class MainScreen extends StatelessWidget {
   /// then you can switch the sceen you want from the navbar list
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-=======
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModalBottomSheet(
         context: context,
@@ -56,7 +54,6 @@ class MainScreen extends StatelessWidget {
       );
     });
 
->>>>>>> 17624271be16d95e3ba8ca50c3f47905bc44db2e
     return ListScreen();
   }
 }

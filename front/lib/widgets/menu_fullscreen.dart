@@ -213,7 +213,7 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.back();
-<<<<<<< HEAD
+
               Get.to(Category_screen());
              break;
             default :
@@ -223,16 +223,11 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
                Get.to( ListScreen() ) ;
              break  ;
 
-=======
+
               Get.to(() => Category_screen());
               break;
-            default:
-              screenConctroller.SelectScreen(index);
-              Navigator.pop(context);
-              Get.back();
-              Get.to(() => ListScreen());
-              break;
->>>>>>> 17624271be16d95e3ba8ca50c3f47905bc44db2e
+
+
           }
 
 

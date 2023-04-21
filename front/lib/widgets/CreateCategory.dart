@@ -59,6 +59,7 @@ class _CreateCategoryState extends State<CreateCategory> {
             padding: const EdgeInsets.all(10.0),
             margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 1),
             child: Obx(()=>TextField(
+              controller: controller.CategoryTitleController.value,
               decoration: InputDecoration(
                 hintText: 'Enter List Title',
                 border:  UnderlineInputBorder(

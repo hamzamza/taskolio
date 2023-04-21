@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:front/Models/id.dart';
 import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
@@ -18,13 +20,13 @@ class Category {
   String title;
 
   @HiveField(2)
-  int? icon = 0;
+  String? icon ;
 
   @HiveField(3)
-  String? desc;
+  String? desc="";
 
   @HiveField(4)
-  int them;
+  Color them;
 
   @HiveField(5)
   List<Task> tasks = [];
@@ -33,7 +35,7 @@ class Category {
     required this.title,
     this.desc,
     required this.them,
-    this.icon,
+    required this.icon,
   }) {
     id = getId();
     save();
@@ -187,9 +189,15 @@ class Category {
   }
 
 // add new categorey static function to use it every where inside the app
-  static Future<void> addCategory(Category category) async {
+  static Future<bool> addCategory(Category category) async {
     final box = getBox();
     await box.put(category.id, category);
+    var newCategory=await getCategoryById(category.id);
+    if(newCategory!.id==category.id){
+        return true;
+    }else{
+      return false;
+    }
   }
 
   void moveTask(int newIndex, String idtask) {

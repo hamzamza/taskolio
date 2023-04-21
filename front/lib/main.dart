@@ -32,7 +32,7 @@ void main() async {
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition:
-          Transition.cupertino, // set a default transition for all routes
+      Transition.cupertino, // set a default transition for all routes
       transitionDuration: Duration(milliseconds: 800),
       theme: ThemeData(
         primarySwatch: Colors.grey,
@@ -57,9 +57,9 @@ class App extends StatelessWidget {
       return (auth.IsLogedin
           ? const ProfileScreen()
           : const Scaffold(
-              body: WelcomeScreen(),
-              backgroundColor: LightGrey,
-            ));
+        body: WelcomeScreen(),
+        backgroundColor: LightGrey,
+      ));
     }));
   }
 }

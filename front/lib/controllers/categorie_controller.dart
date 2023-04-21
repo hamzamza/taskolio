@@ -39,13 +39,14 @@ class  categorieController extends GetxController {
   var ListCategories=<Category>[].obs;
   var deleting=false.obs;
   var screenState=true.obs;
+  var CategoryTitleController = TextEditingController().obs;
 
   //var CatEditController = TextEditingController();
   changeDeleting(bool value){
     deleting.value=value;
   }
   fetchCategories()async{
-    List<Category> categories = await FetchCategories();
+    List<Category> categories = await Category.getAllCategories();
     ListCategories.value=categories;
   }
 
