@@ -44,10 +44,8 @@ class LoginScreen extends StatelessWidget {
                   height: 20,
                 ),
                 GetBuilder<AuthController>(builder: (auth) {
-                  late String username = '';
-                  late String password = '';
                   return auth.Iswaiting
-                      ? Container(
+                      ? const SizedBox(
                           height: 160,
                           child: Center(
                             child: CircularProgressIndicator(
@@ -55,109 +53,102 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         )
-                      : Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Focus(
-                                  onFocusChange: (isFocused) {
-                                    if (isFocused) {
-                                      // scroll to the bottom of the screen
-                                      _scrollController.animateTo(
-                                        _scrollController
-                                            .position.maxScrollExtent,
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn,
-                                      );
-                                    }
-                                  },
-                                  child: TextField(
-                                    onChanged: (value) {
-                                      auth.setEmail(value);
-                                      //TODO: onchange
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        hintText: "  Username ",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white38)),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.all(10),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: Focus(
-                                  onFocusChange: (isFocused) {
-                                    if (isFocused) {
-                                      // scroll to the bottom of the screen
-                                      _scrollController.animateTo(
-                                        _scrollController
-                                            .position.maxScrollExtent,
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeIn,
-                                      );
-                                    }
-                                  },
-                                  child: TextField(
-                                    onChanged: (value) {
-                                      auth.setPassword(value);
-                                      // TODO: onchage
-                                    },
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        hintText: "  Password ",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white38)),
-                                  ),
-                                ),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    foregroundColor: LightBlack,
-                                    backgroundColor: Colors.red[300],
-                                    alignment: Alignment.centerLeft,
-                                    elevation: 0,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 60, vertical: 18),
-                                    minimumSize: Size.zero),
-                                onPressed: () async {
-                                  print('email: $username');
-                                  print('password : $password');
-                                  bool logedin =
-                                      await auth.login();
-                                  if (logedin == true) {
-                                    Get.to(MainScreen());
+                      : Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Focus(
+                                onFocusChange: (isFocused) {
+                                  if (isFocused) {
+                                    // scroll to the bottom of the screen
+                                    _scrollController.animateTo(
+                                      _scrollController
+                                          .position.maxScrollExtent,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeIn,
+                                    );
                                   }
-                                  //TODO:  PROCESS LOGIN
                                 },
-                                child: Container(
-                                  child: Text("Login",
-                                      style: GoogleFonts.roboto(
-                                        color: LightGrey,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      )),
+                                child: TextField(
+                                  onChanged: (value) {
+                                    auth.setEmail(value);
+                                    //TODO: onchange
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      hintText: "  Username ",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white38)),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.all(10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Focus(
+                                onFocusChange: (isFocused) {
+                                  if (isFocused) {
+                                    // scroll to the bottom of the screen
+                                    _scrollController.animateTo(
+                                      _scrollController
+                                          .position.maxScrollExtent,
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      curve: Curves.easeIn,
+                                    );
+                                  }
+                                },
+                                child: TextField(
+                                  onChanged: (value) {
+                                    auth.setPassword(value);
+                                    // TODO: onchage
+                                  },
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      hintText: "  Password ",
+                                      hintStyle: const TextStyle(
+                                          color: Colors.white38)),
+                                ),
+                              ),
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                  ),
+                                  foregroundColor: LightBlack,
+                                  backgroundColor: Colors.red[300],
+                                  alignment: Alignment.centerLeft,
+                                  elevation: 0,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 60, vertical: 18),
+                                  minimumSize: Size.zero),
+                              onPressed: () async {
+                                bool logedin = await auth.login();
+                                if (logedin == true) {
+                                  Get.to(const MainScreen());
+                                }
+                                //TODO:  PROCESS LOGIN
+                              },
+                              child: Container(
+                                child: Text("Login",
+                                    style: GoogleFonts.roboto(
+                                      color: LightGrey,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    )),
+                              ),
+                            ),
+                          ],
                         );
                 })
               ],

@@ -8,13 +8,13 @@ import '../controllers/categorie_controller.dart';
 
 class Menubottom extends StatelessWidget {
   Menubottom({super.key});
-  categorieController controller = Get.put(categorieController());
+  CategorieController controller = Get.put(CategorieController());
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       color: Lightwhite,
-      child: Stack(clipBehavior: Clip.none, children: [
+      child: Stack(clipBehavior: Clip.antiAlias, children: [
         Positioned(
           bottom: 0,
           left: 0,

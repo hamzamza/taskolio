@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/test/testController.dart';
 
 class TestScreen extends StatelessWidget {
   const TestScreen({super.key});
@@ -13,8 +14,10 @@ class TestScreen extends StatelessWidget {
             child: Column(
           children: [
             ElevatedButton(
-              onPressed: () {},
-              child: const Text("create user "),
+              onPressed: () {
+                runtest();
+              },
+              child: const Text("run test "),
             ),
             ElevatedButton(
               onPressed: () {},

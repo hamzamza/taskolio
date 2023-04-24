@@ -47,7 +47,7 @@ class Project {
     save();
   }
 
-  static Box<Project> getBox() => Hive.box<Project>('projects');
+  static Future<Box<Project>> getBox() => Hive.openBox<Project>('projects');
   // receive a prject comming from an owner
   static Future<void> getAffectedProject(
       Project affectedproject, Role myrole) async {
@@ -209,7 +209,7 @@ class Project {
   }
 
   static Future<void> addMeny(List<Project> newlist) async {
-    final box = getBox();
+    final box = await getBox();
     box.addAll(newlist);
   }
 
@@ -230,8 +230,8 @@ class Project {
   }
 
   // Save the project to Hive
-  void save() {
-    final box = Hive.box<Project>('projects');
+  void save() async {
+    final box = await getBox();
     box.put(id, this);
   }
 }

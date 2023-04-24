@@ -10,50 +10,54 @@ class ListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ScreenController screenConctroller = Get.find();
     int listindex = screenConctroller.selectedScreen;
-    return WillPopScope(
-        onWillPop: () async {
-          return false; // returning false will do nothing
-        },
-        child: Scaffold(
-          body: ListView.builder(
+    return Scaffold(
+      body: Stack(
+        children: [
+          ListView.builder(
               itemCount: 26,
               itemBuilder: (BuildContext context, int index) {
                 return ListCadrd();
               }),
-          appBar: AppBar(
-            actions: [
-              PopupMenuButton(
-                  elevation: 4,
-
-                  shadowColor: const Color.fromARGB(87, 0, 0, 0),
-                  // add icon, by default "3 dot" icon
-                  iconSize: 30,
-                  // icon: Icon(Icons.book)
-                  itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem<int>(
-                        value: 0,
-                        child: Text("Selectionner des Tâches "),
-                      ),
-                    ];
-                  },
-                  onSelected: (value) {}),
-            ],
-            automaticallyImplyLeading: false,
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title: Row(
-              children: const [
-                Icon(Icons.text_snippet_rounded),
-                SizedBox(
-                  width: 20,
-                ),
-                Text("salam")
-              ],
+          Positioned(
+            child: Container(height: 70, child: Menubottom()),
+            left: 0,
+            right: 0,
+            bottom: 0,
+          )
+        ],
+      ),
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+              elevation: 4,
+              shadowColor: const Color.fromARGB(87, 0, 0, 0),
+              // add icon, by default "3 dot" icon
+              iconSize: 30,
+              // icon: Icon(Icons.book)
+              itemBuilder: (context) {
+                return [
+                  const PopupMenuItem<int>(
+                    value: 0,
+                    child: Text("Selectionner des Tâches "),
+                  ),
+                ];
+              },
+              onSelected: (value) {}),
+        ],
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
+          children: const [
+            Icon(Icons.text_snippet_rounded),
+            SizedBox(
+              width: 20,
             ),
-          ),
-          bottomNavigationBar: Container(height: 70, child:   Menubottom()),
-        ));
+            Text("salam")
+          ],
+        ),
+      ),
+    );
   }
 }
 

@@ -52,16 +52,17 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       //TODO: fatimas part add list of text fields
                       child: Container(
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 20),
                               decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
                                   border: Border.all(
                                       width: 1, color: Colors.redAccent)),
                               child: SingleChildScrollView(
@@ -93,24 +94,75 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Container(
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Colors.blue,
-                                ),
-                                onPressed: () {},
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.edit_note_rounded,
-                                      color: Colors.white,
+                            Column(
+                              children: [
+                                Container(
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      minimumSize: const Size.fromHeight(60),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                      ),
+                                      backgroundColor: Colors.black,
                                     ),
-                                    Text("submit",
-                                        style: TextStyle(color: Colors.white))
-                                  ],
+                                    onPressed: () {},
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(
+                                          Icons.edit_note_rounded,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 20,
+                                        ),
+                                        Text(
+                                          "submit",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(60),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                    backgroundColor: Colors.red[700],
+                                  ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(
+                                        Icons.logout,
+                                        color: Colors.white,
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        "logout",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -328,7 +380,7 @@ class MyCustomForm extends StatelessWidget {
           label,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         TextField(
           controller: TextEditingController()..text = inittext,
           onChanged: (value) {
@@ -346,7 +398,7 @@ class MyCustomForm extends StatelessWidget {
             hintText: hinttext,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
       ],
     );
   }

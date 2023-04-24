@@ -240,9 +240,16 @@ class TaskList {
     return taskLists;
   }
 
-  static Future<void> addMeny(List<TaskList> newlist) async {
+  static Future<void> deleteAllLits() async {
     final box = await getBox();
-    box.addAll(newlist);
+    await box.clear();
+  }
+
+  static Future<void> addMany(List<TaskList> newlist) async {
+    final box = await getBox();
+    for (final category in newlist) {
+      await box.put(category.id, category);
+    }
   }
 
   static Future<Box<TaskList>> getBox() async {
