@@ -1,59 +1,85 @@
 import 'package:flutter/material.dart';
-
 import 'package:front/screens/list_screen.dart';
 import 'package:front/test/testController.dart';
 import 'package:front/widgets/menu_fullscreen.dart';
-import 'package:get/get.dart';
 
-class MainScreen extends StatelessWidget {
+import 'package:shared_preferences/shared_preferences.dart';
+
+class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
-  /// this is the first screen  , the gool of this screen is just to handel
-  ///  the first frame  of the app it should show modal botom sheet automaticly ,
-  /// then you can switch the sceen you want from the navbar list
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool _showModalBottomSheet = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkIfFirstRun();
+  }
+
+  void _checkIfFirstRun() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool hasShownModalBottomSheet =
+        prefs.getBool('hasShownModalBottomSheet') ?? false;
+    setState(() {
+      _showModalBottomSheet = !hasShownModalBottomSheet;
+    });
+  }
+
+  void _markModalBottomSheetAsShown() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('hasShownModalBottomSheet', true);
+  }
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(10.0),
+    if (_showModalBottomSheet) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(10.0),
+            ),
           ),
-        ),
-        builder: (builder) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.96,
-            child: Column(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      runtest();
-                    },
-                    child: Text("run test")),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: Center(
-                    child: Container(
-                      width: 40,
-                      height: 4,
-                      decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(2))),
+          builder: (builder) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height * 0.96,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        runtest();
+                      },
+                      child: const Text("run test")),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Center(
+                      child: Container(
+                        width: 40,
+                        height: 4,
+                        decoration: const BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.all(Radius.circular(2))),
+                      ),
                     ),
                   ),
-                ),
-                // here you can put the child
-                MenuFullScreen(),
-              ],
-            ),
-          );
-        },
-      );
-    });
+                  // here you can put the child
+                  MenuFullScreen(),
+                ],
+              ),
+            );
+          },
+        ).whenComplete(() => _markModalBottomSheetAsShown());
+      });
+    }
 
-    return ListScreen();
+    return const ListScreen();
   }
 }

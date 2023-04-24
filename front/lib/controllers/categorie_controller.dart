@@ -1,7 +1,6 @@
-import 'package:front/Models/Category.dart';
+import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
 
-import '../api/catApi.dart';
 import 'package:flutter/material.dart';
 
 class MyButton {
@@ -42,7 +41,7 @@ class CategorieController extends GetxController {
   }
 
   fetchCategories() async {
-    List<Category> categories = await FetchCategories();
+    List<Category> categories = await Category.getAllCategories();
     ListCategories.value = categories;
   }
 

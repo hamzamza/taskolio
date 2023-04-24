@@ -75,8 +75,4 @@ class User {
       required this.token});
 
   static Future<Box<User>> getBox() => Hive.openBox<User>('user');
-  void save() async {
-    var box = await getBox();
-    box.put("localuser", this);
-  }
 }

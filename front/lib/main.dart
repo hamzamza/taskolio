@@ -29,7 +29,12 @@ void main() async {
   Hive.registerAdapter(ProjectAdapter());
   Hive.registerAdapter(CategoryAdapter());
   Hive.registerAdapter(UserAdapter());
-
+// handel logedin or logedout
+// passe the is logedin as a params into run app
+//
+  var isauth = await User.getToken();
+  var logedin = isauth != null ? true : false;
+  Get.put(AuthController());
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -43,83 +48,7 @@ void main() async {
           foregroundColor: Colors.black,
         ),
       ),
-      home: const Main(),
+      home: logedin ? const MainScreen() : const WelcomeScreen(),
     ),
   );
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final AuthController authController = Get.put(AuthController());
-    authController.checkAuth();
-    return Container(child: GetBuilder<AuthController>(builder: (auth) {
-      return (auth.IsLogedin
-          ? const MainScreen()
-          : const Scaffold(
-              body: WelcomeScreen(),
-              backgroundColor: LightGrey,
-            ));
-    }));
-  }
-}
-// ipAddress : 192.168.1.105
-
-class Main extends StatefulWidget {
-  const Main({super.key});
-
-  @override
-  State<Main> createState() => _MainState();
-}
-
-class _MainState extends State<Main> {
-  bool isAuthenticated = true;
-  bool isloading = true;
-
-  void checkAuth() async {
-    setState(() {
-      isloading = true;
-    });
-    var isauth = await User.getToken();
-    var logedin = isauth != null ? false : false;
-
-    setState(() {
-      isAuthenticated = logedin;
-      isloading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    isloading = true;
-    checkAuth();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final AuthController authController = Get.put(AuthController());
-    return Container(
-      child: isloading
-          ? Scaffold(
-              body: Center(
-                  child: Container(
-                height: 160,
-                child: const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                  ),
-                ),
-              )),
-            )
-          : isAuthenticated
-              ? const MainScreen()
-              : const Scaffold(
-                  body: WelcomeScreen(),
-                  backgroundColor: LightGrey,
-                ),
-    );
-  }
 }
