@@ -11,7 +11,15 @@ part 'category.g.dart';
 @HiveType(typeId: 3)
 class Category {
 // get instance
-  static Box<Category> getBox() => Hive.box<Category>('categories');
+  //static Box<Category> getBox() => Hive.box<Category>('categories');
+  static Box<Category>? box;
+  static Box<Category>? getBox() {
+    if (box == null) {
+      box = Hive.box<Category>('categories');
+    }
+    return box;
+  }
+
 
   @HiveField(0)
   late String id;
@@ -185,13 +193,14 @@ class Category {
 
   static Future<void> addMeny(List<Category> newlist) async {
     final box = getBox();
-    box.addAll(newlist);
+    box!.addAll(newlist);
   }
 
 // add new categorey static function to use it every where inside the app
   static Future<bool> addCategory(Category category) async {
+    print("hello to add category");
     final box = getBox();
-    await box.put(category.id, category);
+    await box!.put(category.id, category);
     var newCategory=await getCategoryById(category.id);
     if(newCategory!.id==category.id){
         return true;
@@ -212,22 +221,27 @@ class Category {
 
   static Future<void> deleteCategory(String categoryId) async {
     final box = getBox();
-    await box.delete(categoryId);
+    await box!.delete(categoryId);
   }
 
   static Future<Category?> getCategoryById(String categoryId) async {
     final box = getBox();
-    return box.get(categoryId);
+    return box!.get(categoryId);
   }
 
   static Future<List<Category>> getAllCategories() async {
+    print("hello in getAllCategories");
     final box = getBox();
-    final categories = box.values.toList();
+    final categories = box!.values.toList();
+    print("the length of categories is ${categories.length}");
+    for(Category c in categories){
+       print("title is ${c.title}");
+    }
     return categories;
   }
 
   save() async {
     final box = getBox();
-    await box.put(id, this);
+    await box!.put(id, this);
   }
 }

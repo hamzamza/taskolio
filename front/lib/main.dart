@@ -5,7 +5,7 @@ import 'package:front/Models/list.dart';
 import 'package:front/Models/project.dart';
 import 'package:front/Models/task.dart';
 import 'package:front/controllers/auth_controller.dart';
-import 'package:front/controllers/screens_controller.dart';
+
 import 'package:front/helpers/colors.dart';
 import 'package:front/screens/main_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -54,12 +54,17 @@ class App extends StatelessWidget {
     final AuthController authController = Get.put(AuthController());
     authController.checkAuth();
     return Container(child: GetBuilder<AuthController>(builder: (auth) {
-      return (auth.IsLogedin
+      return  const Scaffold(
+         body: WelcomeScreen(),
+         backgroundColor: LightGrey,
+      );
+          /*
+          * (auth.IsLogedin
           ? const ProfileScreen()
           : const Scaffold(
         body: WelcomeScreen(),
         backgroundColor: LightGrey,
-      ));
+      ));*/
     }));
   }
 }

@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:front/Models/category.dart';
+import 'package:front/Models/repetation.dart';
+import 'package:front/Models/task.dart';
 import 'package:front/controllers/TaskController.dart';
 import 'package:front/controllers/screens_controller.dart';
 import 'package:front/widgets/menu_bottom.dart';
@@ -8,12 +11,15 @@ import 'package:flutter_ui_toolkit/flutter_ui_toolkit.dart';
 import 'package:intl/intl.dart';
 
 class ListScreen extends StatelessWidget {
-  ListScreen({super.key});
+  ListScreen(){
+  }
   TaskController taskController=Get.put(TaskController());
-
+  final Map<String, dynamic> Categorydata = Get.arguments;
+  late Category category;
   @override
   Widget build(BuildContext context) {
-    ScreenController screenConctroller = Get.find();
+    ScreenController screenConctroller = Get.put(ScreenController());
+    taskController.getCategory(Categorydata['categoryId']);
     int listindex = screenConctroller.selectedScreen;
     return WillPopScope(
         onWillPop: () async {
@@ -29,7 +35,6 @@ class ListScreen extends StatelessWidget {
             actions: [
               PopupMenuButton(
                   elevation: 4,
-
                   shadowColor: const Color.fromARGB(87, 0, 0, 0),
                   // add icon, by default "3 dot" icon
                   iconSize: 30,
@@ -56,7 +61,7 @@ class ListScreen extends StatelessWidget {
                 GestureDetector(
                     child: Text("salam"),
                      onTap: (){
-                       buildShowModalBottomSheet(context);
+                       buildShowModalBottomSheet(context,task);
                      },
                 )
               ],
@@ -66,15 +71,15 @@ class ListScreen extends StatelessWidget {
         ));
   }
 
-  Future<dynamic> buildShowModalBottomSheet(BuildContext context) {
+  Future<dynamic> buildShowModalBottomSheet(BuildContext context,Task task) {
     var options=[
        { 'icon':Icons.person,'label':'Assignee' },
        { 'icon': Icons.repeat_rounded,'label':'Repeat' },
        { 'icon':Icons.alarm,'label':'Reminders' },
        { 'icon':Icons.menu_outlined,'label':'Description' },
        { 'icon':Icons.playlist_play,'label':'Move to...' },
-
     ];
+    taskController.setDate(task.start!);
     return showModalBottomSheet(
       isScrollControlled: false,
       context: context,
@@ -104,13 +109,13 @@ class ListScreen extends StatelessWidget {
                       margin:const EdgeInsets.symmetric(vertical: 15),
                        child: Row(
                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children:const [
-                             Icon(Icons.person,color: Colors.grey,size: 20,),
+                          children: [
+                            Categorydata['icon'],
                              SizedBox(width: 25),
                              Expanded(
                                flex: 3,
-                               child: Text(
-                                  'My Work',
+                               child:  Text(
+                                   Categorydata['title'],
                                    style: TextStyle(
                                       color: Color(0xff595757),
                                       fontWeight: FontWeight.w500,
@@ -134,6 +139,7 @@ class ListScreen extends StatelessWidget {
                            InkWell(
                              onTap: () {
                                 taskController.ChangeChecked();
+                                taskController.category.value.editTask(taskId: task.id,isDone:taskController.isChecked.value);
                              },
                                child: Obx(()=> taskController.isChecked.value
                                      ? const Icon(
@@ -164,6 +170,7 @@ class ListScreen extends StatelessWidget {
                                backgroundCursorColor: Colors.grey[300]!,
                                onChanged: (value) {
                                   taskController.setTaskContent(value);
+                                  taskController.category.value.editTask(taskId: task.id,title: value);
                                },
                              ),
                            ),
@@ -177,7 +184,7 @@ class ListScreen extends StatelessWidget {
                      child: Container(
                        margin: EdgeInsets.only(top: 15),
                          child: Row(
-                            children:const [
+                            children: [
                                 Icon(
                                   Icons.date_range,
                                   color: Colors.red,
@@ -185,8 +192,9 @@ class ListScreen extends StatelessWidget {
                               SizedBox(
                                 width: 15,
                               ),
-                              Text(
-                                 'Apr 3 10:00AM',
+                              Obx(() => Text(
+                                taskController.dateFormat.value,
+                               )
                               ),
                               SizedBox(
                                 width: 5,
@@ -261,9 +269,9 @@ class ListScreen extends StatelessWidget {
       },
     );
   }
-  ElevatedButton ListCadrd(BuildContext context) => ElevatedButton(
+  ElevatedButton ListCadrd(BuildContext context,Task task) => ElevatedButton(
     onPressed: () {
-      buildShowModalBottomSheet(context);
+      buildShowModalBottomSheet(context,task);
     },
     style: elevatedbuttonStyle(),
     child: Container(
@@ -304,16 +312,16 @@ class ListScreen extends StatelessWidget {
     return Colors.black;
   }
 
-  Widget buildOption(String title,IconData iconData,int index,BuildContext context) {
+  Widget buildOption(String title,IconData iconData,int index,BuildContext context,Task task) {
 
     return GestureDetector(
       onTap: () {
         switch(index){
            case 1:
-             ShowRepeatMenu(context);
+             ShowRepeatMenu(context,task);
            break;
           case 2:
-            ShowReminderOption(context);
+            ShowReminderOption(context,task);
            break;
         }
       },
@@ -345,7 +353,7 @@ class ListScreen extends StatelessWidget {
       ),
     );
   }
-     ShowRepeatMenu(BuildContext context)async{
+     ShowRepeatMenu(BuildContext context,Task task)async{
       final List<Map<String, dynamic>> RepeatOptions = [
         {
           'icon': Icons.not_interested,
@@ -382,8 +390,24 @@ class ListScreen extends StatelessWidget {
                        var index=RepeatOptions.indexOf(option);
 
                          switch(index){
+                           case 0:
+                             category.editTask(taskId: task.id, isRepeated: false);
+                             break;
+                           case 1:
+                             category.editTask(taskId: task.id,isRepeated: true ,repetationType: Repetation.daily);
+                             break;
+                           case 2:
+                             category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.weekly);
+                             break;
+                           case 3:
+                             category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.monthly);
+                             break;
+                           case 4:
+                             category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.yearly);
+                             break;
                            case 5:
                              showDialogWithInputs(context);
+
                            break;
                          }
                      },
@@ -486,6 +510,8 @@ class ListScreen extends StatelessWidget {
                              onPressed: () {
                                // Perform action when 'Ok' button is pressed
                                // ...
+                               var repeatedList=taskController.WeekDays.where((day) => day['isSelected'] as bool).toList();
+                               Navigator.of(context).pop();
                              },
                              child:const Text(
                                  'DONE',
@@ -504,7 +530,7 @@ class ListScreen extends StatelessWidget {
       ),
     );
   }
-   ShowUpdatDateMenu(BuildContext context){
+   ShowUpdatDateMenu(BuildContext context,Task task){
      DateTime now = DateTime.now();
      String formattedDay = DateFormat('EEEE').format(now);
      DateTime tomorrow = now.add(Duration(days: 1));
@@ -544,14 +570,26 @@ class ListScreen extends StatelessWidget {
                     onPressed: () {
                         var index =DateOptions.indexOf(e);
                         switch(index){
+                          case 0:
+                             category.editTask(taskId: task.id,start: now,isTimed:true);
+                             taskController.setDate(now);
+                            break;
+                          case 1:
+                            category.editTask(taskId: task.id,start: tomorrow,isTimed:true);
+                            taskController.setDate(tomorrow);
+                            taskController.getCategory(category.id);
+                            break;
+                          case 2:
+                              category.editTask(taskId: task.id, isTimed:false);
+                            break;
                           case 3:
                              _selectDate(context);
                          break;
                           case 4:
-                             _selectTime(context,'start');
+                             _selectTime(context,'start',task);
                           break;
                           case 5:
-                            _selectTime(context,'last');
+                            _selectTime(context,'last',task);
                             break;
                         }
                     },
@@ -567,7 +605,7 @@ class ListScreen extends StatelessWidget {
           ).toList()
       );
    }
-  Future<void> _selectDate(BuildContext context) async {
+  Future<void> _selectDate(BuildContext context,Task task) async {
 
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -575,17 +613,25 @@ class ListScreen extends StatelessWidget {
         firstDate: DateTime(2010),
         lastDate: DateTime(2050));
     if (picked != null && picked != taskController.selectedDate.value) {
-      taskController.selectedDate.value = picked;
+         //taskController.selectedDate.value = picked;
+         DateTime newDateTime=DateTime( picked.year, picked.month,picked.day,task.start!.hour,task.start!.minute );
+         category.editTask(taskId: task.id,start: newDateTime,isTimed:true);
+         taskController.getCategory(category.id);
+         taskController.dateFormat.value=DateFormat('MMM d hh:mma').format(newDateTime);
     }
   }
-  Future<void> _selectTime(BuildContext context,String type) async {
+  Future<void> _selectTime(BuildContext context,String type,Task task) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: taskController.selectedStartTime.value
     );
     if (picked != null && picked != taskController.selectedStartTime.value) {
          if(type=='start'){
-           taskController.selectedStartTime.value=picked;
+           //taskController.selectedStartTime.value=picked;
+           DateTime newDateTime=DateTime( task.start!.year, task.start!.month, task.start!.day,picked.hour,picked.minute );
+           category.editTask(taskId: task.id,start: newDateTime,isTimed:true);
+           taskController.getCategory(category.id);
+           taskController.dateFormat.value=DateFormat('MMM d hh:mma').format(newDateTime);
          }
          else if(type=='reminder'){
            taskController.reminderTime.value=picked;
@@ -595,7 +641,7 @@ class ListScreen extends StatelessWidget {
          }
     }
   }
-  ShowReminderOption(BuildContext context){
+  ShowReminderOption(BuildContext context,Task task){
     var RminderOptions=[
        'Never',
        '5 minutes before',
@@ -613,8 +659,26 @@ class ListScreen extends StatelessWidget {
                    onPressed: () {
                      var index =RminderOptions.indexOf(e);
                      switch(index){
+                       case 0:
+                         category.editTask(taskId: task.id, reminder: false);
+                         break;
+                       case 1:
+                         category.editTask(taskId: task.id, reminder: true,reminderInterval: Duration(minutes: 5));
+                         break;
+                       case 2:
+                         category.editTask(taskId: task.id, reminder: true,reminderInterval: Duration(minutes: 15));
+                         break;
+                       case 3:
+                         category.editTask(taskId: task.id, reminder: true,reminderInterval: Duration(minutes: 30));
+                         break;
+                       case 4:
+                         category.editTask(taskId: task.id, reminder: true,reminderInterval: Duration(hours: 1));
+                         break;
                        case 5:
-                         _selectTime(context,'reminder');
+                         _selectTime(context,'reminder',task);
+                         var Minute=taskController.reminderTime.value.minute;
+                         var hours=taskController.reminderTime.value.hour;
+                         category.editTask(taskId: task.id, reminder: true,reminderInterval: Duration(minutes: Minute ,hours: hours));
                          break;
                      }
                    },

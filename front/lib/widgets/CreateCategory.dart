@@ -1,4 +1,7 @@
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
 
 import '../controllers/categorie_controller.dart';
@@ -62,7 +65,7 @@ class _CreateCategoryState extends State<CreateCategory> {
               controller: controller.CategoryTitleController.value,
               decoration: InputDecoration(
                 hintText: 'Enter List Title',
-                border:  UnderlineInputBorder(
+                border:const  UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Colors.red, // set the color here
                     width: 2.0,
@@ -90,7 +93,7 @@ class _CreateCategoryState extends State<CreateCategory> {
             ),)
           ),
             Padding(
-            padding:  EdgeInsets.only(left: 25.0,top:10),
+            padding:const  EdgeInsets.only(left: 25.0,top:10),
             child: Obx(() => Text(
               'List properties',
               style: TextStyle(
@@ -98,14 +101,51 @@ class _CreateCategoryState extends State<CreateCategory> {
                   fontSize: 20,
                   fontWeight: FontWeight.bold
               ),
-            ),)
+             ),
+            )
           ),
 
           buildOptions(),
           //CirleList(context),
           // EmojisList()
           Obx(() => controller.ColorsState.value ? CirleList(context):Container()),
-          Obx(() => controller.EmojisState.value ? EmojisList():Container())
+          Obx (() => controller.EmojisState.value ? EmojisList():Container()),
+          Container(
+            width: 400,
+            child: Center(
+              child: ElevatedButton(
+                onPressed: (){
+                     if(controller.SelectedEmojis.isEmpty || controller.CategoryTitleController.value.text.isEmpty){
+                                Fluttertoast.showToast(
+                                    msg: "enter all the fileds",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.grey[600],
+                                    textColor: Colors.white,
+                                    fontSize: 16.0
+                                );
+                     }
+                     else{
+                        var title=controller.CategoryTitleController.value.text;
+                        var icon =controller.SelectedEmojis.value;
+                        var them=controller.SelectedColor.value!;
+                        Category newCategory=Category(title: title, them: them, icon: icon);
+                        var isAdded= Category.addCategory(newCategory);
+                        print("is addes $isAdded");
+                     }
+
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10), // rounded corner radius
+                  ),
+                ),
+                child: Text('Create a Category'),
+              ),
+            ),
+          )
         ],
       ),
     );;

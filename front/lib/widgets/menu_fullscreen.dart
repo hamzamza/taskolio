@@ -7,7 +7,7 @@ import 'package:front/screens/list_screen.dart';
 import 'package:get/get.dart';
 
 class MenuFullScreen extends StatelessWidget {
-  ScreenController screenConctroller = Get.find();
+  ScreenController screenConctroller = Get.put(ScreenController());
   MenuFullScreen({super.key});
   late int productivity = 6;
   @override

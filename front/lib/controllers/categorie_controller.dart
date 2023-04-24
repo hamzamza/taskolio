@@ -1,6 +1,6 @@
 
 
-import 'package:front/Models/Category.dart';
+import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
 
 import '../api/catApi.dart';

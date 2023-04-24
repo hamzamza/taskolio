@@ -10,8 +10,9 @@ class GridCategory extends StatelessWidget {
    categorieController controller=Get.put(categorieController());
   @override
   Widget build(BuildContext context) {
+    controller.fetchCategories();
     return
-      Container(
+      Obx(() => Container(
         height: MediaQuery.of(context).size.height*0.7, // Set the height as needed
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -34,7 +35,7 @@ class GridCategory extends StatelessWidget {
               childWhenDragging:CategoryBody(controller.ListCategories[index].title!,Color(0xff387ff2),Icons.person) ,
             )
                 : dottedBorder(context)),
-      );
+      ) )
       ;
   }
   Widget CategoryBody(String title,Color color,IconData icon){

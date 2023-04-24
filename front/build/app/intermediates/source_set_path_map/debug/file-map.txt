@@ -10,5 +10,6 @@ com.example.front.app-rs-8 C:\Users\ordi\Desktop\taskolio\front\build\app\genera
 com.example.front.app-mergeDebugResources-9 C:\Users\ordi\Desktop\taskolio\front\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
 com.example.front.app-mergeDebugResources-10 C:\Users\ordi\Desktop\taskolio\front\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
 com.example.front.app-merged_res-11 C:\Users\ordi\Desktop\taskolio\front\build\app\intermediates\merged_res\debug
-com.example.front.app-packaged_res-12 C:\Users\ordi\Desktop\taskolio\front\build\path_provider_android\intermediates\packaged_res\debug
-com.example.front.app-packaged_res-13 C:\Users\ordi\Desktop\taskolio\front\build\shared_preferences_android\intermediates\packaged_res\debug
+com.example.front.app-packaged_res-12 C:\Users\ordi\Desktop\taskolio\front\build\fluttertoast\intermediates\packaged_res\debug
+com.example.front.app-packaged_res-13 C:\Users\ordi\Desktop\taskolio\front\build\path_provider_android\intermediates\packaged_res\debug
+com.example.front.app-packaged_res-14 C:\Users\ordi\Desktop\taskolio\front\build\shared_preferences_android\intermediates\packaged_res\debug

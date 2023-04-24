@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import '../Models/Category.dart';
+import '../Models/category.dart';
 
 Future<List<Category>?> FetchCategories() async {
   print('fetch categories');

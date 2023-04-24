@@ -32,8 +32,8 @@ class Task {
   @HiveField(7)
   Repetation? repetationType;
   @HiveField(8)
-  List<DateTime> repetations;
 
+  List<DateTime> repetations;
   // reminder section
   @HiveField(9)
   bool reminder;

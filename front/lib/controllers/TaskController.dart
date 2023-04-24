@@ -1,7 +1,9 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TaskController extends GetxController{
     var taskContent="Task Content".obs;
@@ -11,6 +13,8 @@ class TaskController extends GetxController{
     var selectedStartTime=TimeOfDay.now().obs;
     var selectedLastTime=TimeOfDay.now().obs;
     var reminderTime=TimeOfDay.now().obs;
+    var category=Category(title: "", them: Colors.white, icon: "").obs;
+    var dateFormat="".obs;
     var WeekDays=[
       {
         'day':'MON',
@@ -55,6 +59,12 @@ class TaskController extends GetxController{
     ChangeChecked(){
        isChecked.value=!isChecked.value;
     }
-
+   getCategory(String id)async{
+       category.value!=await Category.getCategoryById(id);
+   }
+   setDate (DateTime dateTime){
+    // selectedDate.value=dateTime;
+     dateFormat.value=DateFormat('MMM d hh:mma').format(dateTime);
+   }
 
 }
