@@ -1,4 +1,3 @@
-import 'package:front/Models/id.dart';
 import 'package:hive/hive.dart';
 
 part 'user.g.dart';

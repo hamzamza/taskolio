@@ -602,7 +602,7 @@ class Category_screen extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 3),
           margin: EdgeInsets.only(top: 15.0),
-          width: 250.0,
+          width: 350.0,
           decoration: BoxDecoration(
             color: Color(0xE1d9ebfa),
             borderRadius: BorderRadius.circular(20.0),

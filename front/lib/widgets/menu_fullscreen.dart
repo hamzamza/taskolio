@@ -37,39 +37,37 @@ class MenuFullScreen extends StatelessWidget {
                     const SizedBox(
                       width: 20,
                     ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("Hamza Douaij",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: -0.5)),
-                          SizedBox(
-                            height: 3,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("Hamza Douaij",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: -0.5)),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.green[100],
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.show_chart_sharp,
+                                  color: Colors.red),
+                              Text("   $productivity /10",
+                                  style: TextStyle(
+                                      color: Colors.green[600],
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: -1))
+                            ],
                           ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 4, horizontal: 10),
-                            decoration: BoxDecoration(
-                                color: Colors.green[100],
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.show_chart_sharp,
-                                    color: Colors.red),
-                                Text("   $productivity /10",
-                                    style: TextStyle(
-                                        color: Colors.green[600],
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: -1))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                     Expanded(
                         child: Row(
@@ -219,7 +217,7 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.back();
-              Get.to(() => ListScreen());
+              Get.to(() => const ListScreen());
               break;
           }
 
@@ -236,7 +234,7 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               ),
               Text(
                 text,
-                style: TextStyle(color: LightGrey, fontSize: 16),
+                style: const TextStyle(color: LightGrey, fontSize: 16),
               ),
             ],
           ),
@@ -258,7 +256,7 @@ Widget Rownedimage(String url) => Container(
 elevatedbuttonStyle(isSelected) => ElevatedButton.styleFrom(
       foregroundColor: Colors.black87,
       backgroundColor:
-          isSelected ? Color.fromARGB(66, 167, 167, 167) : Colors.white,
+          isSelected ? const Color.fromARGB(66, 167, 167, 167) : Colors.white,
       alignment: Alignment.centerLeft,
       elevation: 0,
       padding: EdgeInsets.zero,
@@ -266,8 +264,8 @@ elevatedbuttonStyle(isSelected) => ElevatedButton.styleFrom(
     );
 
 Map<DateTime, int> heatMapDatasets = {
-  DateTime.now().subtract(Duration(days: 4)): 1,
-  DateTime.now().subtract(Duration(days: 5)): 3,
+  DateTime.now().subtract(const Duration(days: 4)): 1,
+  DateTime.now().subtract(const Duration(days: 5)): 3,
 };
 
 Widget Heatmap() => HeatMap(
@@ -277,7 +275,7 @@ Widget Heatmap() => HeatMap(
       showColorTip: false,
       showText: false,
       endDate: DateTime.now(),
-      startDate: DateTime.now().subtract(Duration(days: 90)),
+      startDate: DateTime.now().subtract(const Duration(days: 90)),
       colorMode: ColorMode.opacity,
       datasets: heatMapDatasets,
       colorsets: const {

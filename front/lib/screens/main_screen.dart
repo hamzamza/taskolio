@@ -53,11 +53,6 @@ class _MainScreenState extends State<MainScreen> {
               height: MediaQuery.of(context).size.height * 0.96,
               child: Column(
                 children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        runtest();
-                      },
-                      child: const Text("run test")),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Center(
