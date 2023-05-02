@@ -25,7 +25,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       dueDate: fields[24] as DateTime?,
       isRepeated: fields[6] as bool,
       repetationType: fields[7] as Repetation?,
-      repetations: (fields[8] as List).cast<DateTime>(),
+      repetations: (fields[8] as List).cast<String>(),
       reminder: fields[9] as bool,
       reminderInterval: fields[10] as Duration?,
       isDone: fields[13] as bool,

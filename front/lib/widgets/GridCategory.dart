@@ -1,8 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
 
 import '../controllers/categorie_controller.dart';
+import '../screens/list_screen.dart';
 import 'CreateCategory.dart';
 
 class GridCategory extends StatelessWidget {
@@ -24,84 +26,86 @@ class GridCategory extends StatelessWidget {
             itemCount:  controller.ListCategories.length + 1,
             itemBuilder: (context, index) => index < controller.ListCategories.length
                 ? LongPressDraggable(
-              onDragStarted: () =>controller.changeDeleting(true),
-              onDraggableCanceled: (_, __) => controller.changeDeleting(false),
-              onDragEnd: (_) => controller.changeDeleting(false),
-              feedback: Opacity(
-                opacity: 1,
-                child: CategoryBody(controller.ListCategories[index].title!,Color(0xff387ff2),Icons.person),
-              ),
-              child: CategoryBody(controller.ListCategories[index].title!,Color(0xff387ff2),Icons.person),
-              childWhenDragging:CategoryBody(controller.ListCategories[index].title!,Color(0xff387ff2),Icons.person) ,
+                    data: controller.ListCategories[index],
+                    onDragStarted: () =>controller.changeDeleting(true),
+                    onDraggableCanceled: (_, __) => controller.changeDeleting(false),
+                    onDragEnd: (_) => controller.changeDeleting(false),
+                    feedback: CategoryBody(controller.ListCategories[index]),
+                    child: CategoryBody(controller.ListCategories[index]),
+                    childWhenDragging:CategoryBody(controller.ListCategories[index]) ,
             )
                 : dottedBorder(context)),
       ) )
       ;
   }
-  Widget CategoryBody(String title,Color color,IconData icon){
-      return GestureDetector(
-        onTap: () {
+  Widget CategoryBody(Category category){
+    controller.getCategoryById(category.id);
+      return Container(
+        child: GestureDetector(
+          onTap: () {
+             Get.off(()=>ListScreen(),arguments: category.id);
+          },
+          child: Container(
 
-        },
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          decoration: BoxDecoration(
-            //color: color!.withOpacity(0.3),
-              gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    color!.withOpacity(1.0),
-                    color!.withOpacity(0.5),
-                  ]
+            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            decoration: BoxDecoration(
+              //color: color!.withOpacity(0.3),
+                gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      category.them.withOpacity(1.0) ,
+                      category.them.withOpacity(0.5) ,
+                    ]
 
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 3), // changes position of shadow
                 ),
-              ],
-              borderRadius: BorderRadius.circular(20)
-          ),
-          padding: EdgeInsets.only(top: 10.0, left: 10.0, bottom: 15),
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 40.0,
-                  height: 40.0,
-                  child: Icon(
-                    icon,
-                    color: color!.withOpacity(1),
-                    size: 50,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.4),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: Offset(0, 3), // changes position of shadow
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20.0, bottom: 15.0),
-                  child: Text(
-                    title!,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        fontFamily: 'Heebo-Bold'),
-                  ),
-                ),
-                Container(
-                  child:const Text(
-                    '10 Tasks',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                        fontFamily: 'Heebo-Bold'),
-                  ),
-                ),
-
-              ],
+                ],
+                borderRadius: BorderRadius.circular(20)
             ),
+            padding: EdgeInsets.only(top: 10.0, left: 10.0, bottom: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 60.0,
+                    height: 60.0,
+                    child: Text(
+                       category.icon!,
+                       style: TextStyle(
+                          fontSize: 50,
+                       ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20.0, bottom: 15.0),
+                    child: Text(
+                      category.title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.0,
+                          fontFamily: 'Heebo-Bold'),
+                    ),
+                  ),
+                  Container(
+                    child: Text(
+                      '${category.tasks.length} Tasks',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                          fontFamily: 'Heebo-Bold'),
+                    ),
+                  ),
+
+                ],
+              ),
+
           ),
         ),
       );

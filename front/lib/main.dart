@@ -14,6 +14,7 @@ import 'package:front/screens/profile_screen.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'helpers/ColorAdapter.dart';
 import 'screens/welcome_screen.dart';
 
 void main() async {
@@ -25,9 +26,9 @@ void main() async {
   Hive.registerAdapter(TaskListAdapter());
   Hive.registerAdapter(ProjectAdapter());
   Hive.registerAdapter(CategoryAdapter());
-  await Hive.openBox('categories');
-  await Hive.openBox('projects');
-
+  Hive.registerAdapter(ColorAdapter());
+  //Hive.registerAdapter(TaskAdapter());
+  //Hive.registerAdapter(RepetationAdapter());
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -51,21 +52,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = Get.put(AuthController());
-    authController.checkAuth();
-    return Container(child: GetBuilder<AuthController>(builder: (auth) {
-      return  const Scaffold(
-         body: WelcomeScreen(),
-         backgroundColor: LightGrey,
-      );
-          /*
+    //final AuthController authController = Get.put(AuthController());
+    //authController.checkAuth();
+    return Container(child: Scaffold(
+      body: WelcomeScreen(),
+      backgroundColor: LightGrey,
+    ) /*
           * (auth.IsLogedin
           ? const ProfileScreen()
           : const Scaffold(
         body: WelcomeScreen(),
         backgroundColor: LightGrey,
       ));*/
-    }));
+    );
   }
 }
 // ipAddress : 192.168.1.105

@@ -132,7 +132,9 @@ class _CreateCategoryState extends State<CreateCategory> {
                         var them=controller.SelectedColor.value!;
                         Category newCategory=Category(title: title, them: them, icon: icon);
                         var isAdded= Category.addCategory(newCategory);
+                        controller.fetchCategories();
                         print("is addes $isAdded");
+                        Navigator.pop(context);
                      }
 
                 },
