@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:front/helpers/colors.dart';
+import 'package:get/get.dart';
+
+import 'login_scren.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -15,189 +18,184 @@ class ProfileScreen extends StatelessWidget {
       decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                "assets/images/background_profile_screen.png",
+                "assets/images/background.png",
               ),
               alignment: Alignment.topCenter)),
       padding: const EdgeInsets.only(
         top: 25,
       ),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-        child: Column(
-          children: [
-            //Custom app bar
-            Container(
-                width: double.infinity,
-                padding: const EdgeInsets.only(top: 15, bottom: 50, left: 20),
-                child: Row(children: [
-                  clickedIcon(const Icon(Icons.arrow_back_ios_new_outlined), 13,
-                      () {}, const Color.fromARGB(52, 0, 0, 0))
-                ])),
-            Expanded(
-              child: Stack(
-                alignment: Alignment.center,
-                clipBehavior: Clip.none,
-                children: [
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    left: 0,
-                    bottom: 0,
+      child: Column(
+        children: [
+          //Custom app bar
+          Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 15, bottom: 50, left: 20),
+              child: Row(children: [
+                clickedIcon(const Icon(Icons.arrow_back_ios_new_outlined), 13,
+                    () {
+                  Get.back();
+                }, const Color.fromARGB(52, 0, 0, 0))
+              ])),
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  bottom: 0,
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 120),
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(30)),
+                      color: LightGrey,
+                    ),
+                    //TODO: fatimas part add list of text fields
                     child: Container(
-                      padding: const EdgeInsets.only(top: 120),
-                      decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(30)),
-                        color: Lightwhite,
-                      ),
-                      //TODO: fatimas part add list of text fields
-                      child: Container(
-                        decoration: const BoxDecoration(),
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 20),
-                              decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
-                                  border: Border.all(
-                                      width: 1, color: Colors.redAccent)),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    MyCustomForm(
-                                      hinttext: "Username",
-                                      icon:
-                                          const Icon(Icons.verified_user_sharp),
-                                      label: "username",
-                                      onchange: (value) {},
-                                      inittext: "",
-                                    ),
-                                    MyCustomForm(
-                                      hinttext: "Email",
-                                      icon: const Icon(Icons.email),
-                                      label: "Email",
-                                      onchange: (value) {},
-                                      inittext: "",
-                                    ),
-                                    MyCustomForm(
-                                      hinttext: "Password",
-                                      icon: const Icon(Icons.lock),
-                                      label: "Password",
-                                      onchange: (value) {},
-                                      inittext: "",
-                                    )
-                                  ],
-                                ),
+                      decoration: const BoxDecoration(),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  MyCustomForm(
+                                    hinttext: "Username",
+                                    icon: const Icon(Icons.verified_user_sharp),
+                                    label: "username",
+                                    onchange: (value) {},
+                                    inittext: "",
+                                  ),
+                                  CustomTextField(
+                                      onChange: () {}, hint: "hint"),
+                                  MyCustomForm(
+                                    hinttext: "Email",
+                                    icon: const Icon(Icons.email),
+                                    label: "Email",
+                                    onchange: (value) {},
+                                    inittext: "",
+                                  ),
+                                  MyCustomForm(
+                                    hinttext: "Password",
+                                    icon: const Icon(Icons.lock),
+                                    label: "Password",
+                                    onchange: (value) {},
+                                    inittext: "",
+                                  )
+                                ],
                               ),
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      minimumSize: const Size.fromHeight(60),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                      backgroundColor: Colors.black,
-                                    ),
-                                    onPressed: () {},
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(
-                                          Icons.edit_note_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Text(
-                                          "submit",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                TextButton(
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                child: TextButton(
                                   style: TextButton.styleFrom(
                                     minimumSize: const Size.fromHeight(60),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20.0),
                                     ),
-                                    backgroundColor: Colors.red[700],
+                                    backgroundColor: Colors.black,
                                   ),
                                   onPressed: () {},
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: const [
                                       Icon(
-                                        Icons.logout,
+                                        Icons.edit_note_rounded,
                                         color: Colors.white,
                                       ),
                                       SizedBox(
                                         width: 20,
                                       ),
                                       Text(
-                                        "logout",
+                                        "submit",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
                                       ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 30,
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              TextButton(
+                                style: TextButton.styleFrom(
+                                  minimumSize: const Size.fromHeight(60),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  backgroundColor: Colors.red[700],
+                                ),
+                                onPressed: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.logout,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      "logout",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              )
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Positioned(
-                      top: -60,
-                      child: Stack(
-                        children: [
-                          rowndedImage(
-                              "assets/images/user_image.jpeg", 120, context),
-                          Positioned(
-                            child: clickedIcon(
-                                const Icon(Icons.edit_outlined), 4, () {
-// upload image screen
-                              showDialog(
-                                barrierColor:
-                                    const Color.fromARGB(186, 0, 0, 0),
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const UploadImageScreeen();
-                                },
-                              );
-// end upload image screen
-                            }, Colors.blue),
-                            bottom: 0,
-                            right: 0,
-                          )
-                        ],
-                      ))
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                Positioned(
+                    top: -60,
+                    child: Stack(
+                      children: [
+                        rowndedImage(
+                            "assets/images/user_image.jpeg", 120, context),
+                        Positioned(
+                          child: clickedIcon(const Icon(Icons.edit_outlined), 4,
+                              () {
+                            // upload image screen
+                            showDialog(
+                              barrierColor: const Color.fromARGB(186, 0, 0, 0),
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const UploadImageScreeen();
+                              },
+                            );
+                            // end upload image screen
+                          }, Colors.blue),
+                          bottom: 0,
+                          right: 0,
+                        )
+                      ],
+                    ))
+              ],
+            ),
+          )
+        ],
       ),
     ));
   }
@@ -226,8 +224,7 @@ clickedIcon(Icon icon, double padding, Function whenClickDo, color) =>
 
 Widget rowndedImage(String url, double? size, context) => Container(
     decoration: const BoxDecoration(
-        color: Lightwhite,
-        borderRadius: BorderRadius.all(Radius.circular(700))),
+        color: LightGrey, borderRadius: BorderRadius.all(Radius.circular(700))),
     child: GestureDetector(
       onTap: () {
         showDialog(
