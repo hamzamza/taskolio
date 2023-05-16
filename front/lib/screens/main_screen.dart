@@ -48,6 +48,7 @@ class _MainScreenState extends State<MainScreen> {
               top: Radius.circular(10.0),
             ),
           ),
+<<<<<<< HEAD
           builder: (builder) {
             return SizedBox(
               height: MediaQuery.of(context).size.height * 0.96,
@@ -63,6 +64,23 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.black,
                             borderRadius: BorderRadius.all(Radius.circular(2))),
                       ),
+=======
+        ),
+        builder: (builder) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.96,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Center(
+                    child: Container(
+                      width: 40,
+                      height: 4,
+                      decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(2))),
+>>>>>>> backendbranch
                     ),
                   ),
                   // here you can put the child

@@ -7,7 +7,7 @@ import 'package:front/screens/list_screen.dart';
 import 'package:get/get.dart';
 
 class MenuFullScreen extends StatelessWidget {
-  ScreenController screenConctroller = Get.find();
+  ScreenController screenConctroller = Get.put(ScreenController());
   MenuFullScreen({super.key});
   late int productivity = 6;
   @override
@@ -211,17 +211,33 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.back();
+
+              Get.to(Category_screen());
+             break;
+            default :
+               screenConctroller.SelectScreen(index);
+               Navigator.pop(context);
+               Get.back();
+               Get.to( ListScreen() ) ;
+             break  ;
+
+
               Get.to(() => Category_screen());
               break;
+<<<<<<< HEAD
             default:
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.back();
               Get.to(() => const ListScreen());
               break;
+=======
+
+
+>>>>>>> backendbranch
           }
 
-          //TODO: go to page of the given index
+
         },
         style: elevatedbuttonStyle(index == selectedScreen),
         child: Container(
@@ -234,7 +250,11 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               ),
               Text(
                 text,
+<<<<<<< HEAD
                 style: const TextStyle(color: LightGrey, fontSize: 16),
+=======
+                style:const TextStyle(color: LightGrey, fontSize: 16),
+>>>>>>> backendbranch
               ),
             ],
           ),

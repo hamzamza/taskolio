@@ -1,4 +1,4 @@
-enum Repetation { daily, weekly, monthly, yearly }
+enum Repetation { never,daily, weekly, monthly, yearly }
 
 class TimeData {
   String getday(int index) {

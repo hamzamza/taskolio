@@ -4,6 +4,8 @@ import 'package:front/controllers/categorie_controller.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/GridCategory.dart';
+import '../widgets/CreateCategory.dart';
 import '../widgets/menu_bottom.dart';
 
 class Category_screen extends StatelessWidget {
@@ -48,6 +50,7 @@ class Category_screen extends StatelessWidget {
                              fontSize: 30.0,
                              fontFamily: 'Heebo-Bold'),
                        ),*/
+<<<<<<< HEAD
                     searchBox(),
                   ]),
             ),
@@ -593,6 +596,21 @@ class Category_screen extends StatelessWidget {
       ),
     );
   }
+=======
+                       searchBox(),
+
+                     ]),
+               ),
+               GridCategory()
+               //Menubottom()
+             ],
+           ),
+         ),
+      bottomNavigationBar: Container(height: 70, child:   Menubottom()),
+    );
+  }
+
+>>>>>>> backendbranch
 
 /* ------------------------------------- serchBox --------------------------------------------------- */
   Row searchBox() {
@@ -622,29 +640,6 @@ class Category_screen extends StatelessWidget {
             ),
           ),
         ),
-        /*Container(
-          margin: EdgeInsets.only(right: 20.0),
-          child: IconButton(
-            onPressed: (){
-              Get.snackbar(
-                  'Snack Bar',
-                  'Message Bar',
-                  snackPosition: SnackPosition.TOP,
-                  backgroundColor: Colors.red,
-                  isDismissible: true,
-                  dismissDirection: DismissDirection.horizontal,
-                  forwardAnimationCurve: Curves.bounceInOut,
-                  duration: Duration(seconds: 5)
-
-              );
-            },
-            icon:const Icon(
-              Icons.sort,
-              size: 34.0,
-
-            ),
-          ),
-        )*/
       ],
     );
   }

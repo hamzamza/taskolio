@@ -32,8 +32,7 @@ class Task {
   @HiveField(7)
   Repetation? repetationType;
   @HiveField(8)
-  List<DateTime> repetations;
-
+  List<String> repetations;
   // reminder section
   @HiveField(9)
   bool reminder;
@@ -80,10 +79,10 @@ class Task {
       required this.repetations,
       required this.reminder,
       this.reminderInterval,
-      required this.isDone,
-      required this.progress,
+      this.isDone=false,
+      this.progress=0,
       required this.preority,
-      required this.favorite,
+      this.favorite=false,
       required this.isInproject,
       this.projectId,
       required this.isInCategory,

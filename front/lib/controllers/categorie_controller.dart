@@ -17,7 +17,11 @@ class MyButton {
   }
 }
 
+<<<<<<< HEAD
 class CategorieController extends GetxController {
+=======
+class categorieController extends GetxController {
+>>>>>>> backendbranch
   final buttons = [
     MyButton(title: 'Color'),
     MyButton(title: 'Photo'),
@@ -30,20 +34,41 @@ class CategorieController extends GetxController {
   var EmojisState = false.obs;
   var isViewVisible = false.obs;
   var showDialog = false.obs;
+<<<<<<< HEAD
   var _selectedDate = DateTime.now().obs;
+=======
+>>>>>>> backendbranch
   var isHovered = false.obs;
   var ListCategories = <Category>[].obs;
   var deleting = false.obs;
   var screenState = true.obs;
+<<<<<<< HEAD
   var CatEditController = TextEditingController();
+=======
+  var CategoryTitleController = TextEditingController().obs;
+  var myCategory = Category(title: "", them: Colors.white, icon: "").obs;
+  //var CatEditController = TextEditingController();
+>>>>>>> backendbranch
   changeDeleting(bool value) {
     deleting.value = value;
   }
 
   fetchCategories() async {
+<<<<<<< HEAD
     List<Category> categories = await Category.getAllCategories();
     ListCategories.value = categories;
   }
+=======
+    print("hello to fetchCategorieeeeeeeee ");
+    List<Category> categories = await Category.getAllCategories();
+    ListCategories.value = categories;
+  }
+
+  getCategoryById(String id) async {
+    var category = await Category.getCategoryById(id);
+    myCategory.value = category!;
+  }
+>>>>>>> backendbranch
 
   void showMyDialog() {
     showDialog(true);
@@ -78,6 +103,7 @@ class CategorieController extends GetxController {
     );
     buttons[index] = button.copyWith(isSelected: true);
   }
+<<<<<<< HEAD
 
   void showDialogWithInputs(BuildContext context) {
     Get.dialog(
@@ -237,3 +263,7 @@ class CategorieController extends GetxController {
     }
   }
 }
+=======
+}
+// ---------------------------------
+>>>>>>> backendbranch

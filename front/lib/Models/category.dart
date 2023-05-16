@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:front/Models/id.dart';
 import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
@@ -9,6 +11,10 @@ part 'category.g.dart';
 @HiveType(typeId: 3)
 class Category {
 // get instance
+<<<<<<< HEAD
+=======
+  //static Box<Category> getBox() => Hive.box<Category>('categories');
+>>>>>>> backendbranch
   static Future<Box<Category>> getBox() => Hive.openBox<Category>('categories');
 
   @HiveField(0)
@@ -18,13 +24,13 @@ class Category {
   String title;
 
   @HiveField(2)
-  int? icon = 0;
+  String? icon;
 
   @HiveField(3)
-  String? desc;
+  String? desc = "";
 
   @HiveField(4)
-  int them;
+  Color them;
 
   @HiveField(5)
   List<Task> tasks = [];
@@ -33,28 +39,28 @@ class Category {
     required this.title,
     this.desc,
     required this.them,
-    this.icon,
+    required this.icon,
   }) {
     id = getId();
-    save();
+    //save();
   }
 
   void addTask(Task task) {
-    tasks.add(task);
+    tasks!.add(task);
     save();
   }
 
   // Insert a task at a specific index
   void insertTask(int index, Task task) {
-    tasks.insert(index, task);
+    tasks!.insert(index, task);
     save();
   }
 
   // Remove a task at a specific index
   void removeTask(Task task) {
-    final index = tasks.indexWhere((t) => t.id == task.id);
+    final index = tasks!.indexWhere((t) => t.id == task.id);
     if (index != -1) {
-      tasks.removeAt(index);
+      tasks!.removeAt(index);
       save();
     }
   }
@@ -69,7 +75,7 @@ class Category {
       DateTime? dueDate,
       bool? isRepeated,
       Repetation? repetationType,
-      List<DateTime>? repetations,
+      List<String>? repetations,
       bool? reminder,
       Duration? reminderInterval,
       bool? isDone,
@@ -85,8 +91,8 @@ class Category {
       List<SubTask>? subtasks}) {
     //
     //
-    var index = tasks.indexWhere((element) => element.id == taskId);
-    var newtask = tasks[index];
+    var index = tasks!.indexWhere((element) => element.id == taskId);
+    var newtask = tasks![index];
 
     if (newtask != null) {
       if (title != null) {
@@ -176,11 +182,12 @@ class Category {
       if (subtasks != null) {
         newtask.subtasks = subtasks;
       }
-      tasks[index] = newtask;
+      tasks![index] = newtask;
       save();
     }
   }
 
+<<<<<<< HEAD
   static Future<void> addMany(List<Category> newlist) async {
     final box = await getBox();
     for (final category in newlist) {
@@ -192,15 +199,33 @@ class Category {
   static Future<void> addCategory(Category category) async {
     final box = await getBox();
     await box.put(category.id, category);
+=======
+  static Future<void> addMeny(List<Category> newlist) async {
+    final box = await getBox();
+    box!.addAll(newlist);
+  }
+
+// add new categorey static function to use it every where inside the app
+  static Future<bool> addCategory(Category category) async {
+    print("hello to add category");
+    final box = await getBox();
+    await box!.put(category.id, category);
+    var newCategory = await getCategoryById(category.id);
+    if (newCategory!.id == category.id) {
+      return true;
+    } else {
+      return false;
+    }
+>>>>>>> backendbranch
   }
 
   void moveTask(int newIndex, String idtask) {
-    final oldIndex = tasks.indexWhere((t) => t.id == idtask);
+    final oldIndex = tasks!.indexWhere((t) => t.id == idtask);
     if (newIndex > oldIndex) {
       newIndex -= 1;
     }
-    final task = tasks.removeAt(oldIndex);
-    tasks.insert(newIndex, task);
+    final task = tasks!.removeAt(oldIndex);
+    tasks!.insert(newIndex, task);
     save();
   }
 
@@ -211,22 +236,46 @@ class Category {
 
   static Future<void> deleteCategory(String categoryId) async {
     final box = await getBox();
+<<<<<<< HEAD
     await box.delete(categoryId);
+=======
+    await box!.delete(categoryId);
+>>>>>>> backendbranch
   }
 
   static Future<Category?> getCategoryById(String categoryId) async {
     final box = await getBox();
+<<<<<<< HEAD
     return box.get(categoryId);
   }
 
   static Future<List<Category>> getAllCategories() async {
     final box = await getBox();
     final categories = box.values.toList();
+=======
+    return box!.get(categoryId);
+  }
+
+  static Future<List<Category>> getAllCategories() async {
+    print("hello in getAllCategories");
+    final box = await getBox();
+    final categories = box!.values.toList();
+    //print("the length of categories is ${categories.length}");
+    for (Category c in categories) {
+      print("title is ${c.title}");
+      Category? category = await getCategoryById(c.id);
+      // print("the length of categories is ${category!.tasks!.length}");
+    }
+>>>>>>> backendbranch
     return categories;
   }
 
   save() async {
     final box = await getBox();
+<<<<<<< HEAD
     await box.put(id, this);
+=======
+    await box!.put(id, this);
+>>>>>>> backendbranch
   }
 }

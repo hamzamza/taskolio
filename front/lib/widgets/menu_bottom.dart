@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:front/Models/category.dart';
+import 'package:front/controllers/TaskController.dart';
 import 'package:front/helpers/colors.dart';
+import 'package:front/widgets/CreateTask.dart';
+import 'package:front/widgets/Menu/ShowRepeatMenu.dart';
 import 'package:front/widgets/menu_fullscreen.dart';
 import 'package:get/get.dart';
 
 import '../controllers/categorie_controller.dart';
 
+
 class Menubottom extends StatelessWidget {
   Menubottom({super.key});
+<<<<<<< HEAD
   CategorieController controller = Get.put(CategorieController());
+=======
+  TaskController taskController = Get.put(TaskController());
+  categorieController controller=Get.put(categorieController());
+>>>>>>> backendbranch
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,6 +77,41 @@ class Menubottom extends StatelessWidget {
             )
           ]),
         ),
+<<<<<<< HEAD
+=======
+        DragTarget<Category>(builder: (_, __, ___) {
+                return Obx(
+                  () => Positioned(
+                    bottom: 40,
+                    right: 0,
+                    left: 0,
+                    child: Center(
+                      child: Transform.scale(
+                        scale: 1.2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(100)),
+                                border: Border.all(color: Colors.red, width: 2)),
+                               child: controller.deleting.value
+                              ? ClickedIcon(Icon(Icons.delete), 10, () {})
+                              : ClickedIcon(const Icon(Icons.add), 10, () {
+                                   CreateTaskView(context, taskController, false, true);
+                                }),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+                   onAccept: (Category category){
+                       print('delete is called ${category.id}');
+                       Category.deleteCategory(category.id);
+                       controller.fetchCategories();
+                   },
+              ),
+
+>>>>>>> backendbranch
       ]),
     );
   }

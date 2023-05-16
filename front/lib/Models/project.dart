@@ -96,7 +96,7 @@ class Project {
       DateTime? dueDate,
       bool? isRepeated,
       Repetation? repetationType,
-      List<DateTime>? repetations,
+      List<String>? repetations,
       bool? reminder,
       Duration? reminderInterval,
       bool? isDone,
