@@ -1,5 +1,9 @@
-import User from "../models/User.js"
+import { generatewebtoken } from "../midllware/tokenverification.js"
+import {User} from "../models/User.js"
 import jwt from 'jsonwebtoken'
+
+
+
 const register = async (req, res, next) => {
     try {
         await User.create({
@@ -43,40 +47,8 @@ const login = async (req, res, next) => {
 
 
 
-const generatewebtoken = (userId, username) => {
-    const payload = {
-        userId: userId,
-        username: username
-    };
-    const secret = process.env.SECRET;
-    const options = { expiresIn: '30d' }
-    return jwt.sign(payload, secret, options);
-}
 
 
 
-
-
-const verifyToken = async (token) => {
-    let decodedToken;
-    try { 
-            tokengetted
-            const secret = process.env.SECRET;
-            decodedToken = jwt.verify(token, secret);
-            console.log(decodedToken);
-            const userId = decodedToken.userId;
-            const userflan = await User.findById(userId); 
-        if (userflan) {
-            if (userflan._doc.username == decodedToken.username) {
-                return true;
-            }
-        }
-    } catch (error) {
-        return false;
-    }
-}
-
-
-
-export { register, login, verifyToken } 
+export { register, login,   } 
 

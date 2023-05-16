@@ -1,18 +1,19 @@
 import mongoose from "mongoose"
+import { taskSchema } from "./Task.js";
 const categroySchema = new mongoose.Schema(
     {
+        id: { type: String, requiredd: true },
         title: { type: String, required: true },
-        desc: { type: String, required: true },
-        userId:{ 
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",  
-         },
-        imgurl: { type: String, default: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Blank_Square.svg/768px-Blank_Square.svg.png" },
-        color: { type: String, defalut: "1" } 
-
+        desc: { type: String, },
+        icon: { type: String, }
+        , color: { type: Number, defalut: 0 },
+        tasks: {
+            type: [taskSchema],
+            default: []
+        },
     }
-
 )
 
 
-export default mongoose.model("Categrory", categroySchema);
+ 
+export {   categroySchema };

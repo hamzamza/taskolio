@@ -4,12 +4,12 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.1",
-    "nodemon": "^2.0.21"
-
+    "nodemon": "^2.0.21",
+    "uuid": "^9.0.0"
   },
   "scripts": {
-
-    "start": "nodemon index.js"
+    "test": "nodemon --quiet test.js",
+    "start": "nodemon --quiet index.js"
   },
   "type": "module"
-} 
+}
