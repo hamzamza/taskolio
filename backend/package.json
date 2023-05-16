@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "nodemon --quiet test.js",
-    "start": "node --quiet index.js"
+    "start": "node  index.js"
   },
   "type": "module"
 }
+
