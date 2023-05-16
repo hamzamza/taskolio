@@ -1,4 +1,4 @@
-#Sat Apr 29 04:52:12 CEST 2023
-base.0=C\:\\Users\\ordi\\Desktop\\taskolio\\front\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Fri May 05 04:00:53 WEST 2023
+base.0=/home/douaij/projects/taskolio_v3/taskolio/front/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

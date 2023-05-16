@@ -1,5 +1,3 @@
-
-
 import 'package:front/Models/category.dart';
 import 'package:get/get.dart';
 
@@ -21,39 +19,41 @@ class MyButton {
   }
 }
 
-class  categorieController extends GetxController {
+class categorieController extends GetxController {
   final buttons = [
     MyButton(title: 'Color'),
     MyButton(title: 'Photo'),
     MyButton(title: 'Custom'),
     MyButton(title: 'Emoji'),
   ].obs;
-  var SelectedEmojis="".obs;
+  var SelectedEmojis = "".obs;
   var SelectedColor = Rx<Color?>(Colors.deepPurple[400]);
-  var ColorsState=false.obs;
-  var EmojisState=false.obs;
+  var ColorsState = false.obs;
+  var EmojisState = false.obs;
   var isViewVisible = false.obs;
-  var showDialog=false.obs;
-  var isHovered=false.obs;
-  var ListCategories=<Category>[].obs;
-  var deleting=false.obs;
-  var screenState=true.obs;
+  var showDialog = false.obs;
+  var isHovered = false.obs;
+  var ListCategories = <Category>[].obs;
+  var deleting = false.obs;
+  var screenState = true.obs;
   var CategoryTitleController = TextEditingController().obs;
-  var myCategory=Category(title: "",them: Colors.white,icon: "").obs;
+  var myCategory = Category(title: "", them: Colors.white, icon: "").obs;
   //var CatEditController = TextEditingController();
-  changeDeleting(bool value){
-    deleting.value=value;
-  }
-  fetchCategories()async{
-    print("hello to fetchCategorieeeeeeeee ");
-    List<Category> categories = await Category.getAllCategories();
-    ListCategories.value=categories;
+  changeDeleting(bool value) {
+    deleting.value = value;
   }
 
-  getCategoryById(String id)async{
-     var category=await Category.getCategoryById(id);
-     myCategory.value=category!;
+  fetchCategories() async {
+    print("hello to fetchCategorieeeeeeeee ");
+    List<Category> categories = await Category.getAllCategories();
+    ListCategories.value = categories;
   }
+
+  getCategoryById(String id) async {
+    var category = await Category.getCategoryById(id);
+    myCategory.value = category!;
+  }
+
   void showMyDialog() {
     showDialog(true);
   }
@@ -62,21 +62,22 @@ class  categorieController extends GetxController {
     showDialog(false);
   }
 
-  void setColorState(bool color){
-    ColorsState.value=color;
-    EmojisState.value=false;
+  void setColorState(bool color) {
+    ColorsState.value = color;
+    EmojisState.value = false;
   }
 
-  void setEmojisState(bool emojis){
-    EmojisState.value=emojis;
-    ColorsState.value=false;
-  }
-  void setSelectedColor(Color color){
-    SelectedColor.value=color;
+  void setEmojisState(bool emojis) {
+    EmojisState.value = emojis;
+    ColorsState.value = false;
   }
 
-  void setSelectedEmoji(String emojis){
-    SelectedEmojis.value=emojis;
+  void setSelectedColor(Color color) {
+    SelectedColor.value = color;
+  }
+
+  void setSelectedEmoji(String emojis) {
+    SelectedEmojis.value = emojis;
   }
 
   void selectButton(MyButton button) {
@@ -86,16 +87,5 @@ class  categorieController extends GetxController {
     );
     buttons[index] = button.copyWith(isSelected: true);
   }
-
-
-
-
 }
-
-
-
-
-
-
-
-
+// ---------------------------------

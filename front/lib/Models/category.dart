@@ -21,16 +21,16 @@ class Category {
   String title;
 
   @HiveField(2)
-  String? icon ;
+  String? icon;
 
   @HiveField(3)
-  String? desc="";
+  String? desc = "";
 
   @HiveField(4)
   Color them;
 
   @HiveField(5)
-  List<Task> tasks=[];
+  List<Task> tasks = [];
 
   Category({
     required this.title,
@@ -185,7 +185,7 @@ class Category {
   }
 
   static Future<void> addMeny(List<Category> newlist) async {
-    final box =await getBox();
+    final box = await getBox();
     box!.addAll(newlist);
   }
 
@@ -194,10 +194,10 @@ class Category {
     print("hello to add category");
     final box = await getBox();
     await box!.put(category.id, category);
-    var newCategory=await getCategoryById(category.id);
-    if(newCategory!.id==category.id){
-        return true;
-    }else{
+    var newCategory = await getCategoryById(category.id);
+    if (newCategory!.id == category.id) {
+      return true;
+    } else {
       return false;
     }
   }
@@ -213,30 +213,30 @@ class Category {
   }
 
   static Future<void> deleteCategory(String categoryId) async {
-    final box =await getBox();
+    final box = await getBox();
     await box!.delete(categoryId);
   }
 
   static Future<Category?> getCategoryById(String categoryId) async {
-    final box =await getBox();
+    final box = await getBox();
     return box!.get(categoryId);
   }
 
   static Future<List<Category>> getAllCategories() async {
     print("hello in getAllCategories");
-    final box =await getBox();
+    final box = await getBox();
     final categories = box!.values.toList();
     //print("the length of categories is ${categories.length}");
-    for(Category c in categories){
-       print("title is ${c.title}");
-       Category? category=await getCategoryById(c.id);
+    for (Category c in categories) {
+      print("title is ${c.title}");
+      Category? category = await getCategoryById(c.id);
       // print("the length of categories is ${category!.tasks!.length}");
     }
     return categories;
   }
 
   save() async {
-    final box =await getBox();
+    final box = await getBox();
     await box!.put(id, this);
   }
 }
