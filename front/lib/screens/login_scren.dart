@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key});
+    LoginScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
                 GetBuilder<AuthController>(builder: (auth) {
                   late String username = '';
                   late String password = '';
-                  return auth.Iswaiting
+                  return auth!.Iswaiting
                       ? Container(
                           height: 160,
                           child: Center(

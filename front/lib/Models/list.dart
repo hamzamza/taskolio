@@ -1,7 +1,7 @@
 import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
 import 'package:front/Models/task.dart';
-
+import 'package:flutter/material.dart';
 import 'id.dart';
 import 'package:hive/hive.dart';
 
@@ -26,22 +26,23 @@ class TaskList {
   String? desc;
 
   @HiveField(3)
-  int them;
+  Color them;
 
   @HiveField(4)
-  int? icon = 1;
+  String ? icon ;
 
   @HiveField(5)
   List<Task> tasks = [];
 
 // operation inside the list of tasks
 
-  TaskList({required this.title, this.desc, required this.them, this.icon}) {
+  TaskList({required this.title, this.desc, required this.them,required this.icon}) {
     id = getId();
-    save();
+    //save();
   }
   void editTask(
-      {required String taskId,
+      {
+      required String taskId,
       String? title,
       String? desc,
       bool? isTimed,
@@ -63,7 +64,9 @@ class TaskList {
       String? categorieId,
       String? sectionIndex,
       String? assignedtoId,
-      List<SubTask>? subtasks}) {
+      List<Task>? subtasks
+       }
+       ) {
     //
     //
     var index = tasks.indexWhere((element) => element.id == taskId);
@@ -99,7 +102,7 @@ class TaskList {
       }
 
       if (repetationType != null) {
-        newtask.repetationType = repetationType;
+        newtask.repetationType = repetationType as String?;
       }
 
       if (repetations != null) {
@@ -176,10 +179,10 @@ class TaskList {
       this.desc = desc;
     }
     if (them != null) {
-      this.them = them;
+      this.them = them as Color;
     }
     if (icon != null) {
-      this.icon = icon;
+      this.icon = icon as String?;
     }
     if (tasks != null) {
       this.tasks = tasks;
@@ -198,7 +201,7 @@ class TaskList {
     save();
   }
 
-  void removeTask(Task task) {
+  Future<void> removeTask(Task task) async{
     final index = tasks.indexWhere((t) => t.id == task.id);
     if (index != -1) {
       tasks.removeAt(index);

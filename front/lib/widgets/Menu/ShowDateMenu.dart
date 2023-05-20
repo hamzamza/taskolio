@@ -64,6 +64,7 @@ ShowDateMenu(BuildContext context,Task? task,bool edit ,bool add, TaskController
                            category.editTask(taskId: task.id,start: tomorrow,isTimed:true);
                            taskController.setDate(tomorrow);
                            taskController.getCategory(category.id);
+
                          }else if(task.isInproject){
 
                          }

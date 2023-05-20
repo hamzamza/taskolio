@@ -19,8 +19,8 @@ class TaskListAdapter extends TypeAdapter<TaskList> {
     return TaskList(
       title: fields[1] as String,
       desc: fields[2] as String?,
-      them: fields[3] as int,
-      icon: fields[4] as int?,
+      them: fields[3] as Color,
+      icon: fields[4] as String?,
     )
       ..id = fields[0] as String
       ..tasks = (fields[5] as List).cast<Task>();

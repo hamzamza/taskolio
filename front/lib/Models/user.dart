@@ -33,7 +33,9 @@ class User {
   }
 
   User(
-      {required this.name,
+      {this.id="",
+        this.password="",
+        required this.name,
       required this.email,
       required this.profileImagePath}) {
     this.id = getId();
@@ -41,5 +43,14 @@ class User {
 
   void save() async {
     var box = await Hive.openBox<User>("user");
+  }
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'] as String,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      profileImagePath: json['profileImagePath'] as String,
+      password: json['password'] as String,
+    );
   }
 }

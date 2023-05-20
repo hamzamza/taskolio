@@ -42,7 +42,7 @@ class Category {
     //save();
   }
 
-  void addTask(Task task) {
+  Future<void> addTask(Task task) async{
     tasks!.add(task);
     save();
   }
@@ -85,7 +85,7 @@ class Category {
       String? categorieId,
       String? sectionIndex,
       String? assignedtoId,
-      List<SubTask>? subtasks}) {
+      List<Task>? subtasks}) {
     //
     //
     var index = tasks!.indexWhere((element) => element.id == taskId);
@@ -121,7 +121,7 @@ class Category {
       }
 
       if (repetationType != null) {
-        newtask.repetationType = repetationType;
+        newtask.repetationType = repetationType as String? ;
       }
 
       if (repetations != null) {

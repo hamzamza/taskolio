@@ -12,7 +12,10 @@ import '../controllers/categorie_controller.dart';
 
 
 class Menubottom extends StatelessWidget {
-  Menubottom({super.key});
+  Menubottom({this.from_category=false,this.from_list=false,this.from_project=false});
+  bool from_project;
+  bool from_category;
+  bool from_list;
   TaskController taskController = Get.put(TaskController());
   categorieController controller=Get.put(categorieController());
   @override
@@ -91,7 +94,16 @@ class Menubottom extends StatelessWidget {
                                child: controller.deleting.value
                               ? ClickedIcon(Icon(Icons.delete), 10, () {})
                               : ClickedIcon(const Icon(Icons.add), 10, () {
-                                   CreateTaskView(context, taskController, false, true);
+                                  if(from_project){
+                                     CreateTaskView(context: context,taskController: taskController,InProject: true);
+                                  }
+                                  else if(from_list){
+                                    CreateTaskView(context: context,taskController: taskController,InList: true);
+                                  }
+                                  else if(from_category){
+                                    CreateTaskView(context: context,taskController: taskController,InCategory: true);
+                                  }
+
                                 }),
                         ),
                       ),

@@ -29,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           child: Text(
             textAlign: TextAlign.center,
-            " The perfect app to help you manage all your tasks and projects in one place.",
+              "The perfect app to help you manage all your tasks and projects in one place.",
             style: GoogleFonts.roboto(
               color: Colors.grey[200],
               fontWeight: FontWeight.bold,

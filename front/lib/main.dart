@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:front/Models/category.dart';
@@ -7,6 +8,9 @@ import 'package:front/Models/task.dart';
 import 'package:front/controllers/auth_controller.dart';
 
 import 'package:front/helpers/colors.dart';
+import 'package:front/screens/ListTask.dart';
+import 'package:front/screens/ProjectScreen.dart';
+
 import 'package:front/screens/main_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:front/screens/profile_screen.dart';
@@ -15,6 +19,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'helpers/ColorAdapter.dart';
+import 'helpers/SectionAdapter.dart';
 import 'screens/welcome_screen.dart';
 
 void main() async {
@@ -26,7 +31,10 @@ void main() async {
   Hive.registerAdapter(TaskListAdapter());
   Hive.registerAdapter(ProjectAdapter());
   Hive.registerAdapter(CategoryAdapter());
+  Hive.registerAdapter(SectionAdapter());
   Hive.registerAdapter(ColorAdapter());
+  //Hive.registerAdapter(TaskAdapter());
+  //Hive.registerAdapter(RoleAdapter());
   //Hive.registerAdapter(TaskAdapter());
   //Hive.registerAdapter(RepetationAdapter());
   runApp(
@@ -35,8 +43,12 @@ void main() async {
       defaultTransition:
       Transition.cupertino, // set a default transition for all routes
       transitionDuration: Duration(milliseconds: 800),
+      routes: {
+        '/list_task': (context) => ListTask(),
+        '/project_task':(context)=>ProjectScreen()
+      },
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.grey, 
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
           foregroundColor: Colors.black,
@@ -55,7 +67,7 @@ class App extends StatelessWidget {
     //final AuthController authController = Get.put(AuthController());
     //authController.checkAuth();
     return Container(child: Scaffold(
-      body: WelcomeScreen(),
+      body: MainScreen(),
       backgroundColor: LightGrey,
     ) /*
           * (auth.IsLogedin

@@ -60,7 +60,7 @@ class Category_screen extends StatelessWidget {
              ],
            ),
          ),
-      bottomNavigationBar: Container(height: 70, child:   Menubottom()),
+      bottomNavigationBar: Container(height: 70, child:   Menubottom(from_category: true)),
     );
   }
 

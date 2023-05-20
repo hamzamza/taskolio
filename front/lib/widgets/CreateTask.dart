@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/Models/category.dart';
+import 'package:front/controllers/Listcontroller.dart';
 import 'package:front/widgets/Menu/SelectCategoryMenu.dart';
 import 'package:front/widgets/Menu/ShowDateMenu.dart';
 import 'package:front/widgets/Menu/ShowPriorityMenu.dart';
@@ -9,7 +10,8 @@ import 'package:get/get.dart';
 
 import '../Models/task.dart';
 import '../controllers/TaskController.dart';
-void CreateTaskView(BuildContext context,TaskController taskController,bool InProject,bool InCategory)async {
+void CreateTaskView({BuildContext? context,TaskController? taskController,bool InProject=false ,bool InList=false ,bool InCategory=false })async {
+  ListController listController=Get.put(ListController());
   final taskTitleController = TextEditingController();
   final taskDescController = TextEditingController();
   var categories=await Category.getAllCategories();
@@ -66,12 +68,12 @@ void CreateTaskView(BuildContext context,TaskController taskController,bool InPr
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        buildOption('Today', Icons.today,'0xff23850b',context,1,taskController),
-                        buildOption('Priority', Icons.flag_outlined,'0xff173599',context,2,taskController),
-                        buildOption('Rminder', Icons.alarm,'0xffbf841f',context,3,taskController),
-                        buildOption('Repeat', Icons.repeat_rounded, '0xff8c8d8f', context, 4,taskController),
-                        InCategory? buildOption('Categories', Icons.category,'0xff737272',context,5,taskController):
-                        buildOption('Project', Icons.people_rounded,'0xff737272',context,5,taskController)
+                        buildOption('Today', Icons.today,'0xff23850b',context!,1,taskController!,InProject , InList, InCategory),
+                        buildOption('Priority', Icons.flag_outlined,'0xff173599',context!,2,taskController,InProject , InList, InCategory),
+                        buildOption('Rminder', Icons.alarm,'0xffbf841f',context,3,taskController,InProject , InList, InCategory),
+                        buildOption('Repeat', Icons.repeat_rounded, '0xff8c8d8f', context, 4,taskController,InProject , InList, InCategory),
+                        InCategory? buildOption('Categories', Icons.category,'0xff737272',context,5,taskController,InProject , InList, InCategory):
+                        InProject? buildOption('Project', Icons.people_rounded,'0xff737272',context,5,taskController,InProject , InList, InCategory):Container()
                       ],
                     ),
                   ),
@@ -87,7 +89,7 @@ void CreateTaskView(BuildContext context,TaskController taskController,bool InPr
                         ),
                         onPressed: () {
                           // Perform action when 'Cancel' button is pressed
-                          Navigator.of(context).pop();
+                          Navigator.of(context!).pop();
                         },
                         child:const Text('CANCEL'),
                       ),
@@ -96,7 +98,7 @@ void CreateTaskView(BuildContext context,TaskController taskController,bool InPr
                         style: ElevatedButton.styleFrom(
                           primary: Colors.white, // Set background color here
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           var title=taskTitleController.text;
                           var desc=taskDescController.text;
                           var start=DateTime( taskController.selectedDate.value.year, taskController.selectedDate.value.month, taskController.selectedDate.value.day,taskController.selectedStartTime.value.hour,taskController.selectedStartTime.value.minute );
@@ -109,30 +111,41 @@ void CreateTaskView(BuildContext context,TaskController taskController,bool InPr
                           var reminder=taskController.isReminder.value;
                           var reminderInterval=taskController.reminderDuration.value;
                           var categoryId=taskController.categoryId.value;
-                          Task task=Task(title: title, desc: desc,start: start,end: last ,isTimed: isTimed, isRepeated: isRepeted, repetationType: RepetationType,repetations: Repetations, reminder: reminder, reminderInterval: reminderInterval,preority: priority, isInproject: InProject, isInCategory: InCategory,categorieId: categoryId);
+                          var ListId=listController.list.value.id;
+                          Task task=Task(title: title, desc: desc,start: start,end: last ,isTimed: isTimed, isRepeated: isRepeted, repetationType: RepetationType,repetations: Repetations, reminder: reminder, reminderInterval: reminderInterval,preority: priority, isInproject: InProject, isInCategory: InCategory,categorieId: categoryId,isInList: InList,ListId: ListId) ;
+                          if(InCategory){
+                            await taskController.category.value.addTask(task);
+                            taskController.addNewTask(task);
+                            await taskController.getCategory(categoryId);
+                            Navigator.of(context).pop();
+                          }else if(InList){
+                             listController.list.value.addTask(task);
+                             await listController.getListById(ListId);
+                             Navigator.of(context).pop();
+                          }else if(InProject){
+
+                          }
                           //skController.getCategory(categoryId);
-                          taskController.category.value.addTask(task);
-                          taskController.getCategory(categoryId);
-                          Navigator.of(context).pop();
-                        },
-                        child:const Text(
+                         },
+                         child:const Text(
                           'DONE',
                           style: TextStyle(
                               color: Colors.blue
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 )
+               ],
+             ),
           )
-      ),
-    ),
-  );
-}
-Widget buildOption(String title, IconData iconData,String colors,BuildContext context,int index,TaskController taskController) {
+       ),
+     ),
+   );
+ }
+Widget buildOption(String title, IconData iconData,String colors,BuildContext context,int index,TaskController taskController,bool InProject ,bool InList,bool InCategory){
+  ListController listController=Get.put(ListController());
   final Color color=Color(int.parse(colors));
   //var ListCategory=await Category.getAllCategories();
   return GestureDetector(
@@ -152,7 +165,11 @@ Widget buildOption(String title, IconData iconData,String colors,BuildContext co
             ShowRepeatMenu(context, null, false, true, taskController);
            break;
          case 5:
-           selectCategoryMenu(context, taskController);
+           if(InCategory){
+             selectCategoryMenu(context, taskController);
+           }else if(InCategory){
+           }
+
            break;
        }
 

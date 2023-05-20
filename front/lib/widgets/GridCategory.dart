@@ -8,7 +8,7 @@ import '../screens/list_screen.dart';
 import 'CreateCategory.dart';
 
 class GridCategory extends StatelessWidget {
-   GridCategory(  ) ;
+   GridCategory( ) ;
    categorieController controller=Get.put(categorieController());
   @override
   Widget build(BuildContext context) {
@@ -160,7 +160,7 @@ class GridCategory extends StatelessWidget {
            child: Column(
              children: [
                // here you can put the child here
-               CreateCategory()
+               CreateCategory(creatCategory: true,createList: false)
              ],
            ),
          );

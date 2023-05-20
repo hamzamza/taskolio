@@ -24,7 +24,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       end: fields[5] as DateTime?,
       dueDate: fields[24] as DateTime?,
       isRepeated: fields[6] as bool,
-      repetationType: fields[7] as Repetation?,
+      repetationType: fields[7] as String?,
       repetations: (fields[8] as List).cast<String>(),
       reminder: fields[9] as bool,
       reminderInterval: fields[10] as Duration?,
@@ -38,7 +38,7 @@ class TaskAdapter extends TypeAdapter<Task> {
       categorieId: fields[20] as String?,
       sectionIndex: fields[21] as String?,
       assignedtoId: fields[23] as String?,
-      subtasks: (fields[22] as List?)?.cast<SubTask>(),
+      subtasks: (fields[22] as List?)?.cast<Task>(),
     )
       ..id = fields[0] as String
       ..bin = fields[16] as bool;

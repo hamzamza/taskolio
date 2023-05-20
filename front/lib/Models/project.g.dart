@@ -19,11 +19,12 @@ class ProjectAdapter extends TypeAdapter<Project> {
     return Project(
       title: fields[1] as String,
       desc: fields[2] as String?,
-      them: fields[3] as int,
-      userrole: fields[8] as Role?,
+      them: fields[3] as Color,
+      userrole: fields[8] as String,
+      icon: fields[4] as String?,
     )
       ..id = fields[0] as String
-      ..members = (fields[4] as List).cast<User>()
+      ..members = (fields[4] as List).cast<Member>()
       ..archived = fields[5] as bool
       ..tasks = (fields[6] as List).cast<Task>()
       ..sections = (fields[7] as List).cast<Section>();
@@ -39,6 +40,8 @@ class ProjectAdapter extends TypeAdapter<Project> {
       ..write(obj.title)
       ..writeByte(2)
       ..write(obj.desc)
+      ..writeByte(4)
+      ..write(obj.icon)
       ..writeByte(3)
       ..write(obj.them)
       ..writeByte(4)

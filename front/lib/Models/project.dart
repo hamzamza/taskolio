@@ -2,7 +2,7 @@ import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
 import 'package:front/Models/task.dart';
 import 'package:front/Models/user.dart';
-
+import 'package:flutter/material.dart';
 import 'id.dart';
 
 import 'package:hive/hive.dart';
@@ -21,10 +21,13 @@ class Project {
   String? desc;
 
   @HiveField(3)
-  int them;
+   Color them;
 
   @HiveField(4)
-  List<User> members = [];
+  String ? icon ;
+
+  @HiveField(4)
+  List<Member> members =<Member>[];
 
   @HiveField(5)
   bool archived = false;
@@ -39,23 +42,37 @@ class Project {
     Section(index: '2', title: "Done")
   ];
   @HiveField(8)
-  Role? userrole = Role.owner;
+  String  userrole = "owner";
 
   /// constructor auto instance the hive
-  Project({required this.title, this.desc, required this.them, this.userrole}) {
-    id = getId();
-    save();
+  Project({this.id="",required this.title, this.desc, required this.them, this.icon,List<Member>? members,this.archived = false,List<Task>? tasks, this.userrole = "owner"}) {
+    //id = getId();
+    //save();
   }
 
-  static Box<Project> getBox() => Hive.box<Project>('projects');
+
+  static Future< Box<Project>> getBox() => Hive.openBox<Project>('projects');
   // receive a prject comming from an owner
   static Future<void> getAffectedProject(
       Project affectedproject, Role myrole) async {
     // in this case it's important to be online
     Project addedproject = affectedproject;
-    addedproject.userrole = myrole;
+    addedproject.userrole = myrole as String;
     final box = Hive.box<Project>('projects');
     box.put(addedproject.id, addedproject);
+  }
+
+  static Future<List<Project>> getAllProject() async {
+    print("hello in getAllProject");
+    final box =await getBox();
+    final projects = box!.values.toList();
+    //print("the length of categories is ${categories.length}");
+    /*for(Category c in categories){
+      print("title is ${c.title}");
+      Category? category=await getCategoryById(c.id);
+      // print("the length of categories is ${category!.tasks!.length}");
+    }*/
+    return projects;
   }
 
   void addSection(Section section) {
@@ -109,7 +126,7 @@ class Project {
       String? categorieId,
       String? sectionIndex,
       String? assignedtoId,
-      List<SubTask>? subtasks}) {
+      List<Task>? subtasks}) {
     //
     //
     var index = tasks.indexWhere((element) => element.id == taskId);
@@ -145,7 +162,7 @@ class Project {
       }
 
       if (repetationType != null) {
-        newtask.repetationType = repetationType;
+        newtask.repetationType = repetationType as String?;
       }
 
       if (repetations != null) {
@@ -209,12 +226,12 @@ class Project {
   }
 
   static Future<void> addMeny(List<Project> newlist) async {
-    final box = getBox();
+    final box =await getBox();
     box.addAll(newlist);
   }
 
   // Add a user to the project
-  void addUser(User user) {
+  void addUser(Member user) {
     if (userrole == Role.owner) {
       members.add(user);
       save();
@@ -234,16 +251,81 @@ class Project {
     final box = Hive.box<Project>('projects');
     box.put(id, this);
   }
+  static Future<void> addProject(Project project) async {
+    final box = await getBox();
+    await box.put(project.id, project);
+  }
+
+  static Future<void> deleteProject(String taskListId) async {
+    final box = await getBox();
+    await box.delete(taskListId);
+  }
+
+    static Project fromJson(Map<String, dynamic> json) {
+    final id = json['_id'] as String;
+    final title = json['title'] as String;
+    final desc = json['desc'] as String?;
+    final them = Color(json['them']);
+    final icon = json['icon'] as String?;
+    final membersJson = json['members'] as List<dynamic>;
+    final members = membersJson.map((member) => Member.fromJson(member)).toList();
+    final archived = json['archived'] as bool;
+    final tasksJson = json['tasks'] as List<dynamic>;
+    final tasks = tasksJson.map((task) => Task.fromJson(task)).toList();
+    final sectionsJson = json['sections'] as List<dynamic>;
+    final sections = sectionsJson.map((section) => Section.fromJson(section)).toList();
+    final userrole = json['userrole']!=null ? json['userrole'] :"owner";
+     Project project=Project(id: id,
+       title: title,
+       desc: desc,
+       them: them,
+       icon: icon,
+       members: members ,
+       archived: archived,
+       tasks: tasks,
+       //sections: sections,
+       userrole: userrole,);
+       project.sections=sections;
+    return project;
+  }
 }
 
+
 class Section {
-  Section({required this.title, this.desc, this.index}) {
+  Section({required this.title, this.desc, this.index, List<Task>? tasks}) {
     index ??= getId();
   }
   String? index;
   String title;
   String? desc;
   List<Task> tasks = [];
+  factory Section.fromJson(Map<String, dynamic> json) {
+    return Section(
+      index: json['_id'] as String?,
+      title: json['title'] as String,
+      desc: json['desc'] as String?,
+      tasks: (json['tasks'] as List<dynamic>).map((task) => Task.fromJson(task['task'] as Map<String, dynamic>)).toList(),
+    );
+  }
+}
+class Member {
+  String id;
+  String role;
+  String status;
+
+  Member({
+    required this.id,
+    required this.role,
+    required this.status,
+  });
+
+  factory Member.fromJson(Map<String, dynamic> json) {
+    return Member(
+      id: json['id'] as String,
+      role: json['role'] as String,
+      status: json['status'] as String,
+    );
+  }
 }
 
 enum Role { owner, admin, user }

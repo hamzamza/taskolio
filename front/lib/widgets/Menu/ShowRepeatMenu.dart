@@ -62,7 +62,7 @@ ShowRepeatMenu(BuildContext context,Task? task,bool edit, bool add,TaskControlle
                            category.editTask(taskId: task.id,isRepeated: true ,repetationType: Repetation.daily);
                          }
                       }else{
-                        taskController.selectedRepeatItem.value=Repetation.daily;
+                        taskController.selectedRepeatItem.value="daily";
                         taskController.isRepetead.value=true;
                       }
 
@@ -73,7 +73,7 @@ ShowRepeatMenu(BuildContext context,Task? task,bool edit, bool add,TaskControlle
                           category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.weekly);
                         }
                       }else{
-                        taskController.selectedRepeatItem.value=Repetation.weekly;
+                        taskController.selectedRepeatItem.value="weekly";
                         taskController.isRepetead.value=true;
                       }
                       break;
@@ -83,7 +83,7 @@ ShowRepeatMenu(BuildContext context,Task? task,bool edit, bool add,TaskControlle
                           category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.monthly);
                         }
                       }else{
-                        taskController.selectedRepeatItem.value=Repetation.monthly;
+                        taskController.selectedRepeatItem.value="monthly";
                         taskController.isRepetead.value=true;
                       }
 
@@ -94,7 +94,7 @@ ShowRepeatMenu(BuildContext context,Task? task,bool edit, bool add,TaskControlle
                           category.editTask(taskId: task.id, isRepeated: true ,repetationType: Repetation.yearly);
                         }
                       }else{
-                        taskController.selectedRepeatItem.value=Repetation.yearly;
+                        taskController.selectedRepeatItem.value="yearly";
                         taskController.isRepetead.value=true;
                       }
                       break;

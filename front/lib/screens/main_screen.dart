@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:front/screens/TodayScreen.dart';
 
 import 'package:front/screens/list_screen.dart';
 import 'package:front/test/testController.dart';
@@ -28,11 +29,11 @@ class MainScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.96,
             child: Column(
               children: [
-                ElevatedButton(
+               /* ElevatedButton(
                     onPressed: () {
                       runtest();
                     },
-                    child: Text("run test")),
+                    child: Text("run test")),*/
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Center(
@@ -54,6 +55,6 @@ class MainScreen extends StatelessWidget {
       );
     });
 
-    return ListScreen();
+    return Today();
   }
 }
