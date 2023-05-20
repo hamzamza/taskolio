@@ -5,9 +5,11 @@ import 'package:front/controllers/TaskController.dart';
 import 'package:front/widgets/TaskWidget.dart';
 import 'package:get/get.dart';
 
+import '../Models/task.dart';
+
 class ProjectScreen extends StatelessWidget {
    ProjectScreen(){
-     projectController.getProjectById(ProjectId);
+      projectController.getProjectById(ProjectId);
    }
    ProjectController projectController=Get.put(ProjectController());
    final String ProjectId=Get.arguments!=null? Get.arguments : "";
@@ -74,7 +76,6 @@ class ProjectScreen extends StatelessWidget {
           ),
         ),
         body: Container(
-
             child: Obx(() =>
                 Container(
                   margin: EdgeInsets.only(top: 10),
@@ -152,8 +153,8 @@ void showMyDialog(ProjectController projectController) {
 Widget SectionView(Section section,BuildContext context){
  TaskController taskController=Get.put(TaskController());
    return Container(
-         width: 210,
-         margin: EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+         width: 230,
+         margin: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
          child: Expanded(
            child: ExpansionPanelList.radio(
                       children: [
@@ -162,16 +163,18 @@ Widget SectionView(Section section,BuildContext context){
                             headerBuilder:(context, isOpen) =>SectionHeader(section),
                             body: SingleChildScrollView(
                                   scrollDirection: Axis.vertical,
-                                child:/* Container(
+                                child:Expanded(
                                   child: ListView.builder(
-                                      itemCount: section.tasks.length!=null ?section.tasks.length:0,
+                                      shrinkWrap: true,
+                                      itemCount: section!.tasks!.length!=null ?section!.tasks!.length:0,
                                       itemBuilder:(BuildContext context,int index){
-                                         //return ListCadrd(context, section.tasks[index], taskController);
-                                         return Text("task title is ${ section.tasks[index].title}");
+                                         var task=section!.tasks![index] ;
+                                         return ListCadrd(context, task , taskController);
+                                         //return Text("task title is ${ section!.tasks![index].title}");
                                       }
                                    ),
-                                ),*/
-                                Text("tasks ")
+                                ),
+
                                ),
                            )
                          ],
@@ -192,7 +195,7 @@ Widget SectionView(Section section,BuildContext context){
             Container(
               width: 200,
               child: Text(
-                '${SectionTitle}  ${section.tasks.length}',
+                '${SectionTitle}  ${section!.tasks!.length}',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold

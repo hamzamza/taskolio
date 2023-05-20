@@ -102,9 +102,9 @@ class Menubottom extends StatelessWidget {
                                   }
                                   else if(from_category){
                                     CreateTaskView(context: context,taskController: taskController,InCategory: true);
-                                  }
-
-                                }),
+                                     }
+                                   }
+                                 ),
                         ),
                       ),
                     ),
@@ -126,7 +126,7 @@ class Menubottom extends StatelessWidget {
       ElevatedButton(
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0),
+               borderRadius: BorderRadius.circular(30.0),
             ),
             foregroundColor: Colors.black87,
             backgroundColor:
@@ -136,8 +136,8 @@ class Menubottom extends StatelessWidget {
             padding: EdgeInsets.all(padding),
             minimumSize: Size.zero),
         onPressed: () {
-          whenClickDo();
-        },
+           whenClickDo();
+         },
         child: Container(
           child: icon,
         ),

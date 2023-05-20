@@ -31,7 +31,6 @@ ElevatedButton ListCadrd(BuildContext context,Task? task,TaskController taskCont
                   listController.changeChecked();
                   listController.list.value.editTask(taskId: task!.id,isDone:listController.checked.value);
               }
-
               //taskController.CheckIndex.value=CheckIndex;
             },
             child: task!.isDone
@@ -64,14 +63,14 @@ ElevatedButton ListCadrd(BuildContext context,Task? task,TaskController taskCont
               ),
               Row(
                 children: [
-                  Icon(
+                  task.start!=null? Icon(
                     Icons.date_range,
                     size: 20,
                     color: Colors.grey,
-                  ),
+                  ):Container(),
                   Container(
                     child: Text(
-                      DateFormat('MM/dd/yyyy:hh:mm').format(task.start!),
+                      '${task.start!=null ? DateFormat('MM/dd/yyyy:hh:mm').format(task.start!):''}',
                       style:const TextStyle(
                         fontSize: 17,
                         color: Colors.grey,

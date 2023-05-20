@@ -48,7 +48,7 @@ void main() async {
         '/project_task':(context)=>ProjectScreen()
       },
       theme: ThemeData(
-        primarySwatch: Colors.grey, 
+        primarySwatch: Colors.grey,
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
           foregroundColor: Colors.black,

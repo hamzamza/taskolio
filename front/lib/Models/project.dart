@@ -56,7 +56,7 @@ class Project {
   static Future<void> getAffectedProject(
       Project affectedproject, Role myrole) async {
     // in this case it's important to be online
-    Project addedproject = affectedproject;
+     Project addedproject = affectedproject;
     addedproject.userrole = myrole as String;
     final box = Hive.box<Project>('projects');
     box.put(addedproject.id, addedproject);
@@ -94,7 +94,7 @@ class Project {
 
   void addtaskToSection(Task task, String index) {
     final i = sections.indexWhere((element) => element.index == index);
-    sections[i].tasks.add(task);
+    sections[i]!.tasks!.add(task);
     save();
   }
 
@@ -284,7 +284,8 @@ class Project {
        archived: archived,
        tasks: tasks,
        //sections: sections,
-       userrole: userrole,);
+       userrole: userrole
+     );
        project.sections=sections;
     return project;
   }
@@ -292,19 +293,25 @@ class Project {
 
 
 class Section {
-  Section({required this.title, this.desc, this.index, List<Task>? tasks}) {
+  Section({required this.title, this.desc, this.index, this.tasks}) {
     index ??= getId();
   }
   String? index;
   String title;
   String? desc;
-  List<Task> tasks = [];
+  List<Task>? tasks = [];
   factory Section.fromJson(Map<String, dynamic> json) {
+    //var myTasks=json['tasks'];
+   // print("${myTasks[0]['task']['title']}");
+    var newList=(json['tasks']as List<dynamic>).map((task) =>task['task'] ).toList();
+    print("nombre of tasks isss ${newList.length}");
+    var ll=newList.map((task) => Task.fromJson(task as Map<String, dynamic>)).toList();
+    print("lll length is ${ll.length}");
     return Section(
       index: json['_id'] as String?,
       title: json['title'] as String,
       desc: json['desc'] as String?,
-      tasks: (json['tasks'] as List<dynamic>).map((task) => Task.fromJson(task['task'] as Map<String, dynamic>)).toList(),
+      tasks: ll,
     );
   }
 }

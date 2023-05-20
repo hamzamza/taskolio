@@ -107,6 +107,7 @@ class Task {
     //
   }
   factory Task.fromJson(Map<String, dynamic> json) {
+    print("hello this from json ${json['title']}");
     var RmembersJson = json['repetations'] as List<dynamic>;
     var  repetations = RmembersJson.map((rep) => rep.toString()).toList();
     return Task(

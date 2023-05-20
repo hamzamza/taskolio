@@ -381,7 +381,6 @@ Widget ListWidget({TaskList? taskList, ListController? listController ,Project? 
     print(" project : projectWidget ${project!.title}");
     print("project section ${project.sections.length}");
   }
-
   var Listtitle =inList? taskList!.title.length! >10 ? taskList!.title.substring(1,10) + '...':taskList!.title:'' ;
   var ProjectTitle =inProject? project!.title.length! >10 ? project!.title.substring(1,10) + '...':project!.title:'' ;
   //print("new project title is ${ProjectTitle} with icon ${project!.icon}");
@@ -422,7 +421,7 @@ Widget ListWidget({TaskList? taskList, ListController? listController ,Project? 
            inList? showMenuListOption(listController!,taskList!.id):Container(),
            SizedBox(width: 20),
            Text(
-             '${inList? taskList!.tasks!.length: inProject? project!.tasks.length:'' }'
+             '${inList? taskList!.tasks!.length: inProject? project!.tasks.length :''   } '
            )
          ],
        ),
