@@ -29,7 +29,7 @@ class Today extends StatelessWidget {
        itemCount: taskController.todaysTask.length,
        itemBuilder: (BuildContext context, int index) {
          var task=taskController.todaysTask[index];
-         return ListCadrd(context, task, taskController);
+         return ListCadrd(context, task, taskController,index);
         }
        )
       ),

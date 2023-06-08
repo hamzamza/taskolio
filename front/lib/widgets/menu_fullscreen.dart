@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:front/Models/list.dart';
 import 'package:front/Models/project.dart';
@@ -7,6 +8,7 @@ import 'package:front/controllers/screens_controller.dart';
 import 'package:front/helpers/colors.dart';
 import 'package:front/screens/TodayScreen.dart';
 import 'package:front/screens/category_screen.dart';
+import 'package:front/screens/favoritTask_Screen.dart';
 import 'package:front/screens/list_screen.dart';
 import 'package:front/widgets/CreateCategory.dart';
 import 'package:get/get.dart';
@@ -472,6 +474,14 @@ Widget ClickedCard(Icon icon, String text, int index, int selectedScreen,
               screenConctroller.SelectScreen(index);
               Navigator.pop(context);
               Get.to(Today());
+              break;
+            case 1:
+              break;
+            case 2:
+              screenConctroller.SelectScreen(index);
+              Navigator.pop(context);
+              Get.to(FavoritScreen());
+              print("go to favorite page ");
               break;
             case 4:
               screenConctroller.SelectScreen(index);

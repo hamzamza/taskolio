@@ -79,36 +79,32 @@ class Menubottom extends StatelessWidget {
         ),
         DragTarget<Category>(builder: (_, __, ___) {
                 return Obx(
-                  () => Positioned(
-                    bottom: 40,
-                    right: 0,
-                    left: 0,
-                    child: Center(
-                      child: Transform.scale(
-                        scale: 1.2,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(100)),
-                                border: Border.all(color: Colors.red, width: 2)),
-                               child: controller.deleting.value
-                              ? ClickedIcon(Icon(Icons.delete), 10, () {})
-                              : ClickedIcon(const Icon(Icons.add), 10, () {
-                                  if(from_project){
-                                     CreateTaskView(context: context,taskController: taskController,InProject: true);
-                                  }
-                                  else if(from_list){
-                                    CreateTaskView(context: context,taskController: taskController,InList: true);
-                                  }
-                                  else if(from_category){
-                                    CreateTaskView(context: context,taskController: taskController,InCategory: true);
+                  () => Center(
+                        child: Transform.scale(
+                          scale: 1.2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(100)),
+                                  border: Border.all(color: Colors.red, width: 2)),
+                                 child: controller.deleting.value
+                                ? ClickedIcon(Icon(Icons.delete), 10, () {})
+                                : ClickedIcon(const Icon(Icons.add), 10, () {
+                                    if(from_project){
+                                       CreateTaskView(context: context,taskController: taskController,InProject: true);
+                                    }
+                                    else if(from_list){
+                                      CreateTaskView(context: context,taskController: taskController,InList: true);
+                                    }
+                                    else if(from_category){
+                                      CreateTaskView(context: context,taskController: taskController,InCategory: true);
+                                       }
                                      }
-                                   }
-                                 ),
+                                   ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+
                 );
               },
                    onAccept: (Category category){

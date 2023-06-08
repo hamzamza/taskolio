@@ -32,7 +32,7 @@ class GridCategory extends StatelessWidget {
                     onDragEnd: (_) => controller.changeDeleting(false),
                     feedback: CategoryBody(controller.ListCategories[index]),
                     child: CategoryBody(controller.ListCategories[index]),
-                    childWhenDragging:CategoryBody(controller.ListCategories[index]) ,
+                    //childWhenDragging:CategoryBody(controller.ListCategories[index]) ,
             )
                 : dottedBorder(context)),
       ) )
@@ -41,18 +41,19 @@ class GridCategory extends StatelessWidget {
   Widget CategoryBody(Category category){
     controller.getCategoryById(category.id);
       return Container(
+        width: 150,
+        height: 200,
         child: GestureDetector(
           onTap: () {
              Get.off(()=>ListScreen(),arguments: category.id);
           },
           child: Container(
-
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             decoration: BoxDecoration(
               //color: color!.withOpacity(0.3),
                 gradient: LinearGradient(
                     begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
+                    end:  Alignment.topCenter,
                     colors: [
                       category.them.withOpacity(1.0) ,
                       category.them.withOpacity(0.5) ,
@@ -74,12 +75,12 @@ class GridCategory extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 60.0,
-                    height: 60.0,
+                    height: 60,
                     child: Text(
                        category.icon!,
                        style: TextStyle(
                           fontSize: 50,
+                         decoration: TextDecoration.none,
                        ),
                     ),
                   ),
@@ -87,22 +88,26 @@ class GridCategory extends StatelessWidget {
                     margin: EdgeInsets.only(top: 20.0, bottom: 15.0),
                     child: Text(
                       category.title,
-                      style: const TextStyle(
+                      style:  TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 20.0,
                           fontFamily: 'Heebo-Bold'),
                     ),
                   ),
                   Container(
+
                     child: Text(
                       '${category.tasks.length} Tasks',
-                      style: const TextStyle(
+                      style:  TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0,
                           fontFamily: 'Heebo-Bold'),
                     ),
                   ),
-
                 ],
               ),
 

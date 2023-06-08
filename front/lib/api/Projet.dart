@@ -67,7 +67,7 @@ Future<bool> CreateProject(Project project)async {
   }
 }
 Future<bool> AddSection(String projectId,String title)async {
-  print("api projecttttt id is ${projectId} section ${title}");
+  print("api project id is ${projectId} section ${title}");
   String? apiKey = dotenv.env['URL'];
   var url = Uri.parse("${apiKey}/project/section/create");
   const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYyZTE3ZTE0MzRhMjZkNjYwZTdjY2UiLCJ1c2VybmFtZSI6IjEiLCJpYXQiOjE2ODQ1MzY2MDcsImV4cCI6MTY4NzEyODYwN30.qf2KuD5JEl_nzxdHgX-XVGMygS1sNGHG1BckXkjwUQU';
@@ -80,6 +80,26 @@ Future<bool> AddSection(String projectId,String title)async {
     // Parse the JSON response and return a list of MyClass objects
     var jsonResponse = jsonDecode(response.body);
     return true ;
+  } else {
+    print("status is ${ response.statusCode}");
+    throw Exception('Failed to load data');
+  }
+}
+
+Future<Map<String,dynamic>> AddMember(String projectId,String email,String Role, String Message)async {
+  print("api Member project id is ${projectId} email ${email} email :${email} messagem :${Message}");
+  String? apiKey = dotenv.env['URL'];
+  var url = Uri.parse("${apiKey}/project/addMember");
+  const token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDYyZTE3ZTE0MzRhMjZkNjYwZTdjY2UiLCJ1c2VybmFtZSI6IjEiLCJpYXQiOjE2ODQ1MzY2MDcsImV4cCI6MTY4NzEyODYwN30.qf2KuD5JEl_nzxdHgX-XVGMygS1sNGHG1BckXkjwUQU';
+  const headers = {'Content-Type': 'application/json', 'Authorization': token};
+  var Body = jsonEncode({'projectId':projectId,'role':Role,'guestEmail':email,'message':Message });
+
+  var response = await http.post(url, headers: headers,body: Body);
+  if (response.statusCode == 200) {
+    print('section   proejct succefly');
+    // Parse the JSON response and return a list of MyClass objects
+    var jsonResponse = jsonDecode(response.body);
+    return jsonResponse ;
   } else {
     print("status is ${ response.statusCode}");
     throw Exception('Failed to load data');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:front/Models/category.dart';
 import 'package:front/controllers/Listcontroller.dart';
 import 'package:front/widgets/Menu/SelectCategoryMenu.dart';
@@ -117,10 +118,13 @@ void CreateTaskView({BuildContext? context,TaskController? taskController,bool I
                             taskController.addNewTask(task);
                             await taskController.getCategory(categoryId);
                             Navigator.of(context).pop();
+                            EasyLoading.showSuccess('Project ${title} Created successfully!');
+
                           }else if(InList){
                              listController.list.value.addTask(task);
                              await listController.getListById(ListId);
                              Navigator.of(context).pop();
+                             EasyLoading.showSuccess('Project ${title} Created successfully!');
                           }else if(InProject){
 
                           }

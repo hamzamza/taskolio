@@ -9,9 +9,18 @@ class ListController extends GetxController{
   var GroupList=<TaskList>[].obs;
   var checked=false.obs;
   var list=TaskList(title: "list title ",them: Colors.red,icon: "").obs;
-
+  var favorite=false.obs;
   changeChecked(){
      checked.value=!checked.value;
+  }
+  editDoneTask(String id , bool done )async {
+    list.value.editTask(taskId: id,isDone:done);
+    getListById(list.value.id);
+
+  }
+  editFavoriteTask(String id , bool favorite ){
+    list.value.editTask(taskId: id, favorite: favorite);
+    getListById(list.value.id);
   }
   fetchList()async{
      print("hello in fetch lists ");

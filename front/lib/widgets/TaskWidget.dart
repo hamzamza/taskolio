@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/controllers/TaskController.dart';
+import 'package:front/controllers/categorie_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 
@@ -9,100 +10,134 @@ import 'Menu/ShowDateMenu.dart';
 import 'Menu/ShowPriorityMenu.dart';
 import 'Menu/ShowReminderMenu.dart';
 import 'Menu/ShowRepeatMenu.dart';
-ElevatedButton ListCadrd(BuildContext context,Task? task,TaskController taskController) {
+ElevatedButton ListCadrd(BuildContext context,Task? task,TaskController taskController,int index) {
   ListController listController=Get.put(ListController());
+  if(task!.isInList){
+      listController.checked.value=task!.isDone;
+  }else if(task!.isInCategory){
+      taskController.isChecked.value=task!.isDone;
+  }
    return ElevatedButton(
-
-  onPressed: () {
-    buildShowModalBottomSheet(context,task!,taskController);
-  },
+   onPressed: () {
+      buildShowModalBottomSheet(context,task!,taskController);
+    },
   style: elevatedbuttonStyle(),
-  child: Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-    child: Row(
+  child: Expanded(
+    child: Container(
 
-      children: [
-        InkWell(
-            onTap: () {
-              if(task.isInCategory){
-                taskController.ChangeChecked();
-                taskController.category.value.editTask(taskId: task!.id,isDone:taskController.isChecked.value);
-              }else if(task.isInList){
-                  listController.changeChecked();
-                  listController.list.value.editTask(taskId: task!.id,isDone:listController.checked.value);
-              }
-              //taskController.CheckIndex.value=CheckIndex;
-            },
-            child: task!.isDone
-                ? const Icon(
-              Icons.check_circle,
-              size: 30.0,
-              color: Colors.grey,
-            )
-                : const Icon(
-              Icons.radio_button_unchecked,
-              size: 30.0,
-              color: Colors.grey,
-              ),
-
-        ),
-        Container(
-          padding: EdgeInsets.only(left: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 180,
-                margin: EdgeInsets.only(top: 12.0,left: 5),
-                child: Text(
-                  task!.title,
-                  style: const TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Heebo-Bold'),
-                ),
-              ),
-              Row(
-                children: [
-                  task.start!=null? Icon(
-                    Icons.date_range,
-                    size: 20,
-                    color: Colors.grey,
-                  ):Container(),
-                  Container(
-                    child: Text(
-                      '${task.start!=null ? DateFormat('MM/dd/yyyy:hh:mm').format(task.start!):''}',
-                      style:const TextStyle(
-                        fontSize: 17,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 100.0,top: 10),
-          child:InkWell(
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Row(
+        children: [
+          InkWell(
               onTap: () {
-                taskController.changeFavorite();
-                taskController.category.value.editTask(taskId: task.id,favorite:taskController.isFavorite.value);
+                if(task!.isInCategory){
+                  /*taskController.ChangeChecked();
+                  taskController.category.value.editTask(taskId: task!.id,isDone:taskController.isChecked.value);
+                  taskController.index.value=index;*/
+                  taskController.editDoneTask(task.id, !task.isDone);
+
+                }else if(task.isInList){
+                    /*listController.changeChecked();
+                    listController.list.value.editTask(taskId: task!.id,isDone:listController.checked.value);*/
+                     listController.editDoneTask(task.id, !task.isDone);
+                }
+                //taskController.CheckIndex.value=CheckIndex;
               },
-              child:  task.favorite
+              child:  task!.isInCategory && task.isDone   || task!.isInList &&  task.isDone ?
+                const Icon(
+                  Icons.check_circle,
+                  size: 30.0,
+                  color: Colors.grey,
+                )
+                    : const Icon(
+                      Icons.radio_button_unchecked,
+                      size: 30.0,
+                      color: Colors.grey,
+                ),
+
+            /*task!.isDone
                   ? const Icon(
-                Icons.star_border_outlined,
+                Icons.check_circle,
                 size: 30.0,
                 color: Colors.grey,
               )
                   : const Icon(
-                Icons.star,
+                Icons.radio_button_unchecked,
                 size: 30.0,
                 color: Colors.grey,
-              ),
-            ), //child: popupMenu(task),
-        ),
-      ],
+                ),*/
+
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 180,
+                  margin: EdgeInsets.only(top: 12.0,left: 5),
+                  child: Text(
+                    task!.title,
+                    style: const TextStyle(
+                        fontSize: 18.0,
+                        fontFamily: 'Heebo-Bold'),
+                  ),
+                ),
+                Row(
+                  children: [
+                    task.start!=null? Icon(
+                      Icons.date_range,
+                      size: 20,
+                      color: Colors.grey,
+                    ):Container(),
+                    Container(
+                      child: Text(
+                        '${task.start!=null ? DateFormat('MM/dd/yyyy:hh:mm').format(task.start!):''}',
+                        style:const TextStyle(
+                          fontSize: 17,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 80.0,top: 10),
+            child:InkWell(
+                onTap: () {
+                  if(task.isInList){
+                    listController.list.value.editTask(taskId: task!.id,favorite:listController.favorite.value);
+                    listController.favorite.value=!listController.favorite.value;
+                    taskController.favoritIndex.value=index;
+                  }else if(task.isInCategory){
+                    taskController.changeFavorite();
+                    taskController.category.value.editTask(taskId: task.id,favorite:taskController.isFavorite.value);
+                    taskController.favoritIndex.value=index;
+                  }else if( task.isInproject){
+                    taskController.changeFavorite();
+                  }
+                },
+                child:
+                task!.isInCategory && taskController.isFavorite.value && taskController.favoritIndex.value==index  || task!.isInList && listController.favorite.value && taskController.favoritIndex.value==index || task.isInproject && taskController.isChecked.value?
+                const Icon(
+                  Icons.star,
+                  size: 30.0,
+                  color: Colors.grey,
+                )
+                    : const Icon(
+                  Icons.star_border_outlined,
+                  size: 30.0,
+                  color: Colors.grey,
+                 )
+
+
+              ), //child: popupMenu(task),
+          ),
+        ],
+      ),
     ),
   ),
 );
@@ -230,6 +265,7 @@ Future<dynamic> buildShowModalBottomSheet(BuildContext context,Task task,TaskCon
                         if(task.isInCategory){
                           taskController.ChangeChecked();
                            taskController.category.value.editTask(taskId: task.id,isDone:taskController.isChecked.value);
+                           //taskController.favoritIndex.value=index;
                         }else if(task.isInList){
 
                           listController.changeChecked();
@@ -395,7 +431,7 @@ Widget SubTaskBody(Task task,TaskController taskController){
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: task?.subtasks!=null? task?.subtasks?.length :0,
-                  itemBuilder:(context,index)=>ListCadrd(context, task!.subtasks![index], taskController),
+                  itemBuilder:(context,index)=>ListCadrd(context, task!.subtasks![index], taskController,index),
               ),
           ),
           InkWell(

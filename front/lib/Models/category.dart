@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:front/Models/id.dart';
 import 'package:front/Models/repetation.dart';
 import 'package:front/Models/sub_task.dart';
+import 'package:front/controllers/Listcontroller.dart';
+import 'package:front/controllers/TaskController.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'task.dart';
 
@@ -86,8 +89,6 @@ class Category {
       String? sectionIndex,
       String? assignedtoId,
       List<Task>? subtasks}) {
-    //
-    //
     var index = tasks!.indexWhere((element) => element.id == taskId);
     var newtask = tasks![index];
 

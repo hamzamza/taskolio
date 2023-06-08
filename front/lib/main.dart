@@ -6,6 +6,7 @@ import 'package:front/Models/list.dart';
 import 'package:front/Models/project.dart';
 import 'package:front/Models/task.dart';
 import 'package:front/controllers/auth_controller.dart';
+import 'package:front/helpers/DurationAdapter.dart';
 
 import 'package:front/helpers/colors.dart';
 import 'package:front/screens/ListTask.dart';
@@ -21,7 +22,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'helpers/ColorAdapter.dart';
 import 'helpers/SectionAdapter.dart';
 import 'screens/welcome_screen.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
       statusBarIconBrightness: Brightness.dark,
@@ -33,7 +34,8 @@ void main() async {
   Hive.registerAdapter(CategoryAdapter());
   Hive.registerAdapter(SectionAdapter());
   Hive.registerAdapter(ColorAdapter());
-  //Hive.registerAdapter(TaskAdapter());
+  Hive.registerAdapter(TaskAdapter());
+  Hive.registerAdapter(DurationAdapter());
   //Hive.registerAdapter(RoleAdapter());
   //Hive.registerAdapter(TaskAdapter());
   //Hive.registerAdapter(RepetationAdapter());
@@ -55,13 +57,15 @@ void main() async {
         ),
       ),
       home: const App(),
+      builder: EasyLoading.init(),
     ),
   );
+  //configLoading();
+  //EasyLoading.init();
 }
 
 class App extends StatelessWidget {
   const App({super.key});
-
   @override
   Widget build(BuildContext context) {
     //final AuthController authController = Get.put(AuthController());
@@ -78,5 +82,16 @@ class App extends StatelessWidget {
       ));*/
     );
   }
+}
+void configLoading() {
+  EasyLoading.instance
+    ..indicatorType = EasyLoadingIndicatorType.circle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = false
+    ..dismissOnTap = false
+    ..indicatorColor = Colors.green;
 }
 // ipAddress : 192.168.1.105

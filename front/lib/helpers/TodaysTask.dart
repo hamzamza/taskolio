@@ -22,12 +22,12 @@ Future<List<Task>> TodaysTask()async{
       TodaysTasks.addAll(tasks);
     }*/
 
-    //List<TaskList> allLists=await TaskList.getAllTaskLists();
+    List<TaskList> allLists=await TaskList.getAllTaskLists();
 
-    /*for(TaskList c in allLists){
-      var tasks =c.tasks.where((element) => element.start?.compareTo(DateTime.now())==0).toList();
+    for(TaskList c in allLists){
+      var tasks =c.tasks.where((element) =>  DateTime(element.start!.year , element.start!.month ,element.start!.day)!.compareTo(Today)==0).toList();
       TodaysTasks.addAll(tasks);
-    }*/
+    }
     return TodaysTasks;
 }
 

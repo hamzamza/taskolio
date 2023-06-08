@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:front/Models/category.dart';
 import 'package:front/Models/list.dart';
@@ -77,7 +78,7 @@ class CreateCategory  extends StatelessWidget {
                       width: 2.0,
                     ),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: controller.SelectedColor.value!, width: 2.0),
                   ),
 
@@ -93,6 +94,7 @@ class CreateCategory  extends StatelessWidget {
                     ),
                     onPressed: () {
                       //TODO: clear the text field
+                      controller.CategoryTitleController.value.clear();
                     },
                   ),
                 ),
@@ -100,15 +102,15 @@ class CreateCategory  extends StatelessWidget {
             ),
               Padding(
               padding:const  EdgeInsets.only(left: 25.0,top:10),
-              child: Obx(() => Text(
+              child:  Text(
                 'List properties',
-                style: TextStyle(
-                    color: controller.SelectedColor.value!,
+                style: TextStyle( 
+                    //color: controller.SelectedColor.value!,
                     fontSize: 20,
                     fontWeight: FontWeight.bold
                 ),
                ),
-              )
+
             ),
 
             buildOptions(),
@@ -146,18 +148,22 @@ class CreateCategory  extends StatelessWidget {
                         Category newCategory=Category(title: title, them: them, icon: icon);
                         var isAdded= Category.addCategory(newCategory);
                         controller.fetchCategories();
-                        print("is addes $isAdded");
+                        //print("is addes $isAdded");
+                        Navigator.pop(context);
+                        EasyLoading.showSuccess('Category ${title} Created successfully!');
 
                       }else if(createList){
                         TaskList newTaskList=TaskList(title: title, them: them,icon: icon);
                         TaskList.addTaskList(newTaskList);
                         listController.fetchList();
                         Navigator.pop(context);
+                        EasyLoading.showSuccess('List ${title} Created successfully!');
                       } else if(creatProject){
                           Project project=Project(title: title, them: them,userrole: "owner",icon: icon);
                           projectController.creatProject(project);
                           //projectController.fetchProject();
                           Navigator.pop(context);
+                          EasyLoading.showSuccess('Project ${title} Created successfully!');
                       }
                     }
                   },

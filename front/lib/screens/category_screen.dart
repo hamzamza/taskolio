@@ -10,7 +10,7 @@ import '../widgets/CreateCategory.dart';
 import '../widgets/menu_bottom.dart';
 
 class Category_screen extends StatelessWidget {
-   Category_screen({Key? key}) : super(key: key) {
+     Category_screen({Key? key}) : super(key: key) {
      controller.fetchCategories();
    }
    categorieController controller=Get.put(categorieController());
@@ -52,7 +52,6 @@ class Category_screen extends StatelessWidget {
                              fontFamily: 'Heebo-Bold'),
                        ),*/
                        searchBox(),
-
                      ]),
                ),
                GridCategory()

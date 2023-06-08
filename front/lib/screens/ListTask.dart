@@ -17,7 +17,6 @@ class ListTask extends StatelessWidget {
 
     final String TaskId=Get.arguments!=null? Get.arguments : "";
     listController.getListById(TaskId);
-
     return  Obx(() =>
         Scaffold(
           backgroundColor: listController.list.value.them,
@@ -57,7 +56,7 @@ class ListTask extends StatelessWidget {
              child: Obx(()=>ListView.builder(
                itemCount: listController.list.value.tasks.length,
                itemBuilder: (BuildContext context, int index) {
-                  return ListCadrd(context, listController.list.value.tasks[index], taskController);
+                  return ListCadrd(context, listController.list.value.tasks[index], taskController,index);
                },
              )),
           ),

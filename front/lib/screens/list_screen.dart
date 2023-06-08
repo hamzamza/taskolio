@@ -36,8 +36,8 @@ class ListScreen extends StatelessWidget {
                   crossAxisCount: 1,
                   childAspectRatio: 5,
                 ),
-                itemCount: taskController.ListTask.length,
-                itemBuilder: (context,index)=>ListCadrd(context, taskController.ListTask[index], taskController),
+                itemCount: taskController.ListTask.value.length,
+                itemBuilder: (context,index)=>ListCadrd(context, taskController.ListTask.value[index], taskController,index),
               ),),
           appBar: AppBar(
             actions: [
@@ -67,7 +67,7 @@ class ListScreen extends StatelessWidget {
                   width: 20,
                 ),
                 GestureDetector(
-                    child: Text("salam"),
+                    child: Obx(()=> Text(taskController.category.value.title) ),
                      onTap: (){
                        //buildShowModalBottomSheet(context,task);
                      },
